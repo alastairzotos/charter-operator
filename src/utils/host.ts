@@ -1,5 +1,6 @@
 
 export interface HostParseResult {
+  server: string;
   subdomain: string;
   apiSubdomain: string;
   domain: string;
@@ -11,7 +12,8 @@ export const parseHost = (resource: string): HostParseResult => {
   return {
     subdomain,
     apiSubdomain: subdomain + '-api',
-    domain
+    domain,
+    server: resource,
   }
 }
 

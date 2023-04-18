@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button } from 'react-native-paper';
 import { useGetBooking } from "../state/booking.state";
@@ -22,8 +22,10 @@ export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
   }, [bookingId]);
 
   useEffect(() => {
-    if (!!booking && !!booking['Name']) {
-      navigation.get().setOptions({ title: `Booking by ${booking['Name']}` });
+    if (!!booking) {
+      if (!!booking['Name']) {
+        navigation.get().setOptions({ title: `Booking by ${booking['Name']}` });
+      }
     }
   }, [booking]);
 

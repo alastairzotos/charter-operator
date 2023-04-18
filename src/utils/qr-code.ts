@@ -1,10 +1,9 @@
-import { z } from 'zod';
 import { isHttpsUri } from 'valid-url';
 import parseUrl from 'parse-url';
 import { HostParseResult, parseHost } from './host';
 import { SetupDto } from '../models/setup';
 
-export type QRParseError = 'invalid-url' | 'wrong-url' | 'invalid-setup';
+export type QRParseError = 'invalid-url' | 'wrong-url' | 'invalid-setup' | 'wrong-server' | 'wrong-operator';
 
 export interface QRCodeParseResult<T> {
   error?: QRParseError;
