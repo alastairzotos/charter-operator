@@ -17,6 +17,10 @@ export const QRErrorDisplay: React.FC<Props> = ({ error }) => {
       {error === 'wrong-url' && (
         <Text>QR code doesn't refer to a booking</Text>
       )}
+
+      {error === 'invalid-setup' && (
+        <Text>Invalid setup QR code</Text>
+      )}
     </Surface>
   )
 }

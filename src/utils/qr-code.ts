@@ -1,16 +1,20 @@
+import { z } from 'zod';
 import { isHttpsUri } from 'valid-url';
 import parseUrl from 'parse-url';
 import { HostParseResult, parseHost } from './host';
+import { SetupDto } from '../models/setup';
 
-export type QRParseError = 'invalid-url' | 'wrong-url';
+export type QRParseError = 'invalid-url' | 'wrong-url' | 'invalid-setup';
 
-export interface QRCodeParseResult {
+export interface QRCodeParseResult<T> {
   error?: QRParseError;
-  result?: {
-    hostData: HostParseResult; 
-    bookingId: string;
-  };
+  result?: T;
 }
+
+export interface QRCodeBookingResult {
+  hostData: HostParseResult; 
+  bookingId: string;
+};
 
 interface PathParseResult {
   error?: QRParseError;
@@ -33,7 +37,7 @@ const extractBookingIdFromPath = (path: string): PathParseResult => {
   return { bookingId };
 }
 
-export const extractBookingFromQrCode = (data: string): QRCodeParseResult => {
+export const extractBookingFromQrCode = (data: string): QRCodeParseResult<QRCodeBookingResult> => {
   if (!isHttpsUri(data)) {
     return { error: 'invalid-url' };
   }
@@ -54,4 +58,18 @@ export const extractBookingFromQrCode = (data: string): QRCodeParseResult => {
       bookingId: pathParseResult.bookingId!
     }
   };
+}
+
+export const extractSetupDataFromQrCode = (data: string): QRCodeParseResult<SetupDto> => {
+  try {
+    const parsedData = SetupDto.parse(JSON.parse(data));
+
+    return {
+      result: parsedData
+    };
+  } catch {
+    return {
+      error: 'invalid-setup'
+    }
+  }
 }

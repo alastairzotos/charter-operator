@@ -1,34 +1,56 @@
-import React, { useState } from "react";
-import { QRErrorDisplay } from "../components/qr-error-display";
-import { QRCodeScanner } from "../components/qr-code-scanner";
-import { Wrapper } from "../components/wrapper";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "../utils/nav";
-import { extractBookingFromQrCode, QRParseError } from "../utils/qr-code";
+import { BookingScanner } from "../components/booking-scanner";
+import { Wrapper } from "../components/wrapper";
+import { useGetServer } from "../state/setup.state";
+import { ActivityIndicator, Button, Text } from "react-native-paper";
+import { HomeMenu } from "../components/home-menu";
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigate();
 
-  const [error, setError] = useState<QRParseError | null>(null);
+  const [getServerStatus, getServer, server] = useGetServer(s => [s.status, s.request, s.value]);
+  const [showBookingScanner, setShowBookingScanner] = useState(false);
 
-  const handleDataReceived = (_: string, data: string) => {
-    const { error, result } = extractBookingFromQrCode(data);
+  useEffect(() => {
+    navigation.get().setOptions({
+      headerRight: HomeMenu
+    })
+  }, [navigation.get()])
 
-    if (!!error) {
-      setError(error);
-    } else {
-      setError(null);
-      navigation.push("booking", { bookingId: result.bookingId });
+  useEffect(() => {
+    getServer();
+  }, []);
+
+  useEffect(() => {
+    if (getServerStatus === 'success') {
+      if (!server) {
+        navigation.push("setup");
+      } else {
+        setTimeout(() => setShowBookingScanner(true), 500);
+      }
     }
+  }, [getServerStatus, server]);
+
+  if (!getServerStatus) {
+    return null;
   }
 
   return (
     <Wrapper>
-      <QRCodeScanner
-        onDataReceived={handleDataReceived}
-        prompt="Point the camera at a QR code to verify the booking"
-      >
-        {error && <QRErrorDisplay error={error} />}
-      </QRCodeScanner>
+      {!showBookingScanner && (
+        <>
+          {getServerStatus === "fetching" && <ActivityIndicator size="large" />}
+          {getServerStatus === "error" && <Text>There was an unexpected error. Please restart the app.</Text>}
+          {(getServerStatus === "success" && !server) && (
+            <Button mode="contained" onPress={() => navigation.push("setup")}>
+              Click to setup
+            </Button>
+          )}
+        </>
+      )}
+
+      {showBookingScanner && <BookingScanner />}
     </Wrapper>
   );
 }

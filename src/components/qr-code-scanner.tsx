@@ -24,7 +24,6 @@ export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({ prompt
     getBarCodeScannerPermissions();
   }, []);
 
-
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
   }
