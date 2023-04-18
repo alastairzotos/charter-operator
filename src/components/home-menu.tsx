@@ -18,6 +18,11 @@ export const HomeMenu: React.FC = () => {
       key: 'setup',
       title: "Connect to server",
       handle: () => navigation.push("setup")
+    },
+    {
+      key: "bookings",
+      title: "Bookings",
+      handle: () => navigation.push("bookings")
     }
   ];
 

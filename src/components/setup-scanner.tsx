@@ -3,9 +3,9 @@ import { QRErrorDisplay } from "../components/qr-error-display";
 import { QRCodeScanner } from "../components/qr-code-scanner";
 import { useNavigate } from "../utils/nav";
 import { extractSetupDataFromQrCode, QRParseError } from "../utils/qr-code";
-import { setStorageItem, storageKeys } from "../storage";
 import { Button, Text } from "react-native-paper";
 import { StyleSheet } from "react-native";
+import { saveSetup } from "../state/setup.state";
 
 export const SetupScanner: React.FC = () => {
   const navigation = useNavigate();
@@ -20,7 +20,7 @@ export const SetupScanner: React.FC = () => {
       setError(error);
     } else {
       setError(null);
-      await setStorageItem(storageKeys.server, result.server);
+      await saveSetup(result);
       setServer(result.server);
     }
   }

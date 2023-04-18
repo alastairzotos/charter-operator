@@ -2,6 +2,7 @@ import { ParamListBase, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { HomeMenu } from "../components/home-menu";
 import { BookingScreen } from "./booking";
+import { BookingsScreen } from "./bookings";
 import { HomeScreen } from "./home";
 import { SetupScreen } from "./setup";
 
@@ -27,6 +28,10 @@ export const screens = {
     component: SetupScreen,
     title: "Setup",
   },
+  bookings: {
+    component: BookingsScreen,
+    title: "Bookings",
+  }
 } satisfies Record<string, Screen>;
 
 export type ScreenKey = keyof typeof screens;
