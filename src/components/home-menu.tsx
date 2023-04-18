@@ -16,7 +16,7 @@ export const HomeMenu: React.FC = () => {
   const menuItems: MenuItemProps[] = [
     {
       key: 'setup',
-      title: "Connect to server",
+      title: "Connect to account",
       handle: () => navigation.push("setup")
     },
     {

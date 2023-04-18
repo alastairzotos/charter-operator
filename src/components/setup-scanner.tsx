@@ -5,13 +5,15 @@ import { useNavigate } from "../utils/nav";
 import { extractSetupDataFromQrCode, QRParseError } from "../utils/qr-code";
 import { Button, Text } from "react-native-paper";
 import { StyleSheet } from "react-native";
-import { saveSetup } from "../state/setup.state";
+import { saveSetup, useSetup } from "../state/setup.state";
 
 export const SetupScanner: React.FC = () => {
   const navigation = useNavigate();
 
+  const { setup } = useSetup();
+
   const [error, setError] = useState<QRParseError | null>(null);
-  const [server, setServer] = useState<string | undefined>();
+  const [connectToAnotherAccount, setConnectToAnotherAccount] = useState(false);
 
   const handleDataReceived = async (_: string, data: string) => {
     const { error, result } = extractSetupDataFromQrCode(data);
@@ -21,14 +23,16 @@ export const SetupScanner: React.FC = () => {
     } else {
       setError(null);
       await saveSetup(result);
-      setServer(result.server);
+      setConnectToAnotherAccount(false);
     }
   }
 
-  if (!!server) {
+  if (!!setup && !connectToAnotherAccount) {
     return (
       <>
-        <Text>You have connected to <Text style={styles.serverName}>{server}</Text></Text>
+        <Text>
+          Connected to <Text style={styles.bold}>{setup.server}</Text> as <Text style={styles.bold}>{setup.operator.name}</Text>
+        </Text>
 
         <Button
           style={styles.homeButton}
@@ -37,25 +41,50 @@ export const SetupScanner: React.FC = () => {
         >
           Click to return home
         </Button>
+
+        <Button
+          style={styles.connectToAnotherButton}
+          onPress={() => setConnectToAnotherAccount(true)}
+        >
+          Connect to another account
+        </Button>
       </>
     )
   }
 
   return (
-    <QRCodeScanner
-      onDataReceived={handleDataReceived}
-      prompt="To get started, scan the QR code in your confirmation email"
-    >
-      {error && <QRErrorDisplay error={error} />}
-    </QRCodeScanner>
+    <>
+      <QRCodeScanner
+        onDataReceived={handleDataReceived}
+        prompt="To get started, scan the QR code in your confirmation email"
+      >
+        {error && <QRErrorDisplay error={error} />}
+      </QRCodeScanner>
+
+      {connectToAnotherAccount && (
+        <Button
+          style={styles.cancelButton}
+          mode="contained-tonal"
+          onPress={() => setConnectToAnotherAccount(false)}
+        >
+          Cancel
+        </Button>
+      )}
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  serverName: {
+  bold: {
     fontWeight: 'bold',
   },
   homeButton: {
+    marginTop: 20,
+  },
+  connectToAnotherButton: {
+    marginTop: 20,
+  },
+  cancelButton: {
     marginTop: 20,
   }
 })

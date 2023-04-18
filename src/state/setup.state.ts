@@ -31,4 +31,5 @@ export const useSetup = () => {
 
 export const saveSetup = async (setup: SetupDto) => {
   await setStorageItem(storageKeys.setup, JSON.stringify(setup));
+  useGetSetup.setState({ status: 'success', value: setup });
 }
