@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button } from 'react-native-paper';
 import { useGetBooking } from "../state/booking.state";
 import { useNavigate } from "../utils/nav";
+import { DataErrorDisplay } from "./data-error-display";
 import { BookingDataTable } from "./data-table";
 
 export interface Props {
@@ -28,7 +29,11 @@ export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
 
   return (
     <>
-      <View>
+      {(getBookingStatus === 'success' && !!booking) && (
+        <DataErrorDisplay data={booking} />
+      )}
+
+      <ScrollView>
         {getBookingStatus === 'fetching' && (
           <ActivityIndicator size="large" />
         )}
@@ -38,12 +43,9 @@ export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
         )}
 
         {(getBookingStatus === 'success' && !!booking) && (
-          <>
-            <Text>Booking: <Text style={{ fontWeight: 'bold' }}>{bookingId}</Text></Text>
-            <BookingDataTable data={booking} />
-          </>
+          <BookingDataTable data={booking} />
         )}
-      </View>
+      </ScrollView>
 
       {(getBookingStatus === 'error' || getBookingStatus === 'success') && (
         <Button
@@ -62,6 +64,5 @@ const styles = StyleSheet.create({
   scanButton: {
     padding: 16,
     borderRadius: 1000,
-    marginTop: 40,
   }
 })

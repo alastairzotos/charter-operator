@@ -7,7 +7,7 @@ interface Props {
   error: QRParseError;
 }
 
-export const ErrorDisplay: React.FC<Props> = ({ error }) => {
+export const QRErrorDisplay: React.FC<Props> = ({ error }) => {
   return (
     <Surface style={styles.surface}>
       {error === 'invalid-url' && (

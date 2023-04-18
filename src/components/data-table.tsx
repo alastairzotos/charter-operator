@@ -1,27 +1,6 @@
 import React from "react";
 import { DataTable, Surface, Text } from 'react-native-paper';
 import { StyleSheet, View } from "react-native";
-;
-
-const styles = StyleSheet.create({
-  paper: {
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 5,
-  },
-  table: {
-    width: '100%',
-    paddingBottom: 50,
-    paddingTop: 24,
-  },
-  cell: {
-    marginTop: 12,
-  },
-  value: {
-    fontWeight: 'bold',
-    textAlign: 'right',
-  },
-});
 
 interface Props {
   data: Record<string, string>;
@@ -43,3 +22,23 @@ export const BookingDataTable: React.FC<Props> = ({ data }) => {
     </Surface>
   )
 }
+
+const styles = StyleSheet.create({
+  paper: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5,
+  },
+  table: {
+    width: '100%',
+    paddingBottom: 50,
+    paddingTop: 24,
+  },
+  cell: {
+    marginTop: 12,
+  },
+  value: {
+    fontWeight: 'bold',
+    textAlign: 'right',
+  },
+});
