@@ -9,7 +9,7 @@ export interface Screen {
 export const screens = {
   home: {
     component: HomeScreen,
-    title: "Home",
+    title: "Charter",
   },
   booking: {
     component: BookingScreen,
