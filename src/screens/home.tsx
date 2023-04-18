@@ -17,7 +17,7 @@ export const HomeScreen: React.FC = () => {
     <Wrapper>
       {!setup && (
         <Button mode="contained" onPress={() => navigation.push("setup")}>
-          Click to setup
+          Connect to account
         </Button>
       )}
 
