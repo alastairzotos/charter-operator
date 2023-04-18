@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { ActivityIndicator, ScrollView, StyleSheet, Text } from "react-native";
 import { Button } from 'react-native-paper';
 import { useGetBooking } from "../state/booking.state";
 import { useNavigate } from "../utils/nav";
