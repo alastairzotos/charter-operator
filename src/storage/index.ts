@@ -1,10 +1,10 @@
 
 export const storageKeys = {
-  host: 'charter-host',
+  server: 'charter-server',
 }
 
 export const getStorageItem = (key: string): string => {
-  if (key === storageKeys.host) {
+  if (key === storageKeys.server) {
     return 'corfutravelguide.bitmetro.io';
   }
 }
