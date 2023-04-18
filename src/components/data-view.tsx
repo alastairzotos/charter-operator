@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { Button } from 'react-native-paper';
 import { useGetBooking } from "../state/booking.state";
+import { useNavigate } from "../utils/nav";
 import { BookingDataTable } from "./data-table";
 
 export interface Props {
@@ -10,6 +11,7 @@ export interface Props {
 }
 
 export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
+  const navigation = useNavigate();
   const [getBookingStatus, getBooking, booking] = useGetBooking(s => [s.status, s.request, s.value]);
 
   useEffect(() => {
@@ -17,6 +19,12 @@ export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
       getBooking(bookingId);
     }
   }, [bookingId]);
+
+  useEffect(() => {
+    if (!!booking && !!booking['Name']) {
+      navigation.get().setOptions({ title: `Booking by ${booking['Name']}` });
+    }
+  }, [booking]);
 
   return (
     <>
@@ -38,13 +46,13 @@ export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
       </View>
 
       {(getBookingStatus === 'error' || getBookingStatus === 'success') && (
-          <Button
-            onPress={onReset}
-            mode="contained"
-            style={styles.scanButton}
-          >
-            Scan another QR code
-          </Button>
+        <Button
+          onPress={onReset}
+          mode="contained"
+          style={styles.scanButton}
+        >
+          Scan another QR code
+        </Button>
       )}
     </>
   )
