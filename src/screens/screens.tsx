@@ -1,5 +1,6 @@
 import { ParamListBase, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import { HomeMenu } from "../components/home-menu";
 import { BookingScreen } from "./booking";
 import { HomeScreen } from "./home";
 import { SetupScreen } from "./setup";
@@ -14,6 +15,9 @@ export const screens = {
   home: {
     component: HomeScreen,
     title: "Charter",
+    options: {
+      headerRight: HomeMenu,
+    }
   },
   booking: {
     component: BookingScreen,

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IconButton, Menu } from "react-native-paper";
+import { StyleSheet } from "react-native";
 import { useNavigate } from "../utils/nav";
 
 interface MenuItemProps {
@@ -27,7 +28,7 @@ export const HomeMenu: React.FC = () => {
 
   return (
     <Menu
-      style={{ width: 100, height: 100 }}
+      style={styles.menu}
       visible={menuOpen}
       onDismiss={() => setMenuOpen(false)}
       anchor={(
@@ -43,3 +44,10 @@ export const HomeMenu: React.FC = () => {
     </Menu>
   )
 }
+
+const styles = StyleSheet.create({
+  menu: {
+    width: 200,
+    height: 100,
+  }
+})

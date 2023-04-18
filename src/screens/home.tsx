@@ -4,19 +4,12 @@ import { BookingScanner } from "../components/booking-scanner";
 import { Wrapper } from "../components/wrapper";
 import { useGetServer } from "../state/setup.state";
 import { ActivityIndicator, Button, Text } from "react-native-paper";
-import { HomeMenu } from "../components/home-menu";
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigate();
 
   const [getServerStatus, getServer, server] = useGetServer(s => [s.status, s.request, s.value]);
   const [showBookingScanner, setShowBookingScanner] = useState(false);
-
-  useEffect(() => {
-    navigation.get().setOptions({
-      headerRight: HomeMenu
-    })
-  }, [navigation.get()])
 
   useEffect(() => {
     getServer();
