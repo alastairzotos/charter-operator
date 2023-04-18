@@ -3,6 +3,7 @@ import { Dimensions, StyleSheet, Text } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Camera } from 'expo-camera';
 import { WRAPPER_PADDING } from './wrapper';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Props {
   prompt?: string;
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({ prompt, onDataReceived, children }) => {
+  const isFocused = useIsFocused();
+
   const [hasPermission, setHasPermission] = useState(null);
 
   useEffect(() => {
@@ -31,19 +34,21 @@ export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({ prompt
 
   return (
     <>
-      <Camera
-        onBarCodeScanned={({ type, data }) => onDataReceived(type, data)}
-        style={{
-          width: Dimensions.get('screen').width,
-          marginLeft: -WRAPPER_PADDING,
-          marginRight: -WRAPPER_PADDING,
-          marginBottom: WRAPPER_PADDING,
-          marginTop: -WRAPPER_PADDING,
-          height: 400,
-        }}
-      >
-        {children}
-      </Camera>
+      {isFocused && (
+        <Camera
+          onBarCodeScanned={({ type, data }) => onDataReceived(type, data)}
+          style={{
+            width: Dimensions.get('screen').width,
+            marginLeft: -WRAPPER_PADDING,
+            marginRight: -WRAPPER_PADDING,
+            marginBottom: WRAPPER_PADDING,
+            marginTop: -WRAPPER_PADDING,
+            height: 400,
+          }}
+        >
+          {children}
+        </Camera>
+      )}
 
       {prompt && <Text>{prompt}</Text>}
     </>
