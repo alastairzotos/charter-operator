@@ -4,6 +4,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Camera } from 'expo-camera';
 import { WRAPPER_PADDING } from './wrapper';
 import { useIsFocused } from '@react-navigation/native';
+import { usePermissionsStatus } from '../state/permissions.state';
 
 interface Props {
   prompt?: string;
@@ -13,21 +14,20 @@ interface Props {
 export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({ prompt, onDataReceived, children }) => {
   const isFocused = useIsFocused();
 
-  const [hasPermission, setHasPermission] = useState(null);
+  const { camera, setCameraStatus } = usePermissionsStatus();
+
+  const getBarCodeScannerPermissions = async () => {
+    const { status } = await BarCodeScanner.requestPermissionsAsync();
+    setCameraStatus(status === 'granted');
+  };
 
   useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    };
-
-    getBarCodeScannerPermissions();
+    if (!camera) {
+      getBarCodeScannerPermissions();
+    }
   }, []);
 
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
-  }
-  if (hasPermission === false) {
+  if (!camera) {
     return <Text>No access to camera</Text>;
   }
 
