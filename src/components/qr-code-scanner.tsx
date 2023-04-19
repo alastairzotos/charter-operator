@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Dimensions, StyleSheet, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { Dimensions, Text } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Camera } from 'expo-camera';
 import { WRAPPER_PADDING } from './wrapper';
