@@ -2,7 +2,7 @@ import { createHttpClient } from "@bitmetro/http-client";
 import { getSetup } from "../state/setup.state";
 import { getApiUrlForHost } from "../utils/host";
 
-export const client = async (server?: string) => {
+export const httpClient = async (server?: string) => {
   if (!server) {
     const setup = await getSetup();
     server = setup.server;
