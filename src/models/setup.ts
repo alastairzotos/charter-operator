@@ -10,6 +10,10 @@ export const SetupDto = z.object({
       name: z.string(),
       email: z.string(),
     })
+  }),
+  oauth2: z.object({
+    fbAppId: z.string(),
+    googleClientId: z.string(),
   })
 });
 

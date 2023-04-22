@@ -1,5 +1,5 @@
 import { createQuery } from "@bitmetro/create-query";
-import { getStorageItem, setStorageItem, storageKeys } from "../storage";
+import { clearStorageItem, getStorageItem, setStorageItem, storageKeys } from "../storage";
 import { SetupDto } from '../models/setup';
 import { useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -32,4 +32,9 @@ export const useSetup = () => {
 export const saveSetup = async (setup: SetupDto) => {
   await setStorageItem(storageKeys.setup, JSON.stringify(setup));
   useGetSetup.setState({ status: 'success', value: setup });
+}
+
+export const clearSetup = async () => {
+  await clearStorageItem(storageKeys.setup);
+  useGetSetup.setState({ status: undefined, value: undefined });
 }

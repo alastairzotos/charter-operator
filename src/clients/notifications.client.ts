@@ -4,5 +4,7 @@ export const attachPushTokenToOperator = async (server: string, operatorId: stri
   try {
     const client = await httpClient(server);
     await client.post<{}, {}, { id: string, token: string }>('/operators/notification-token', { id: operatorId, token })
-  } catch { }
+  } catch (e) {
+    console.log(e);
+  }
 }

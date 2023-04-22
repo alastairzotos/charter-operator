@@ -4,6 +4,7 @@ import { HomeMenu } from "../components/home-menu";
 import { BookingScreen } from "./booking";
 import { BookingsScreen } from "./bookings";
 import { HomeScreen } from "./home";
+import { LoginScreen } from "./login";
 import { SetupScreen } from "./setup";
 
 export interface Screen {
@@ -20,13 +21,17 @@ export const screens = {
       headerRight: HomeMenu,
     }
   },
-  booking: {
-    component: BookingScreen,
-    title: "Booking",
-  },
   setup: {
     component: SetupScreen,
     title: "Setup",
+  },
+  login: {
+    component: LoginScreen,
+    title: "Login",
+  },
+  booking: {
+    component: BookingScreen,
+    title: "Booking",
   },
   bookings: {
     component: BookingsScreen,

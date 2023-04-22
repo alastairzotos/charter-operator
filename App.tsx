@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Screen, screens } from './src/screens';
 import { NotificationProvider } from './src/providers/notification-provider';
+import { useAuthState } from './src/state/auth.state';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const { initialised, setup } = useAuthState();
+
+  useEffect(() => {
+    if (!initialised) {
+      setup();
+    }
+  }, [initialised]);
+
   return (
     <NavigationContainer>
       <SafeAreaProvider>
@@ -20,7 +29,7 @@ export default function App() {
                   key={key}
                   name={key}
                   component={component}
-                  options={{ ...options, title, }}
+                  options={{ title, ...options, }}
                 />
               ))}
             </Stack.Navigator>

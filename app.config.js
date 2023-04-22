@@ -4,6 +4,10 @@ module.exports = {
   "version": "1.0.0",
   "orientation": "portrait",
   "icon": "./assets/icon.png",
+  "scheme": "charter",
+  "owner": "bitmetro",
+  "originalFullName": "@bitmetro/charter-operator",
+  "currentFullName": "@bitmetro/charter-operator",
   "userInterfaceStyle": "light",
   "splash": {
     "image": "./assets/splash.png",
@@ -46,7 +50,6 @@ module.exports = {
       "projectId": "d90937a4-6d0b-413f-a052-8f5abecfada7"
     }
   },
-  "owner": "zotoaster",
   "runtimeVersion": {
     "policy": "sdkVersion"
   },
