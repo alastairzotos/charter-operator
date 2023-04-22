@@ -1,4 +1,3 @@
-
 export interface HostParseResult {
   server: string;
   subdomain: string;
@@ -7,18 +6,18 @@ export interface HostParseResult {
 }
 
 export const parseHost = (resource: string): HostParseResult => {
-  const [subdomain, domain] = resource.split('.');
+  const [subdomain, domain] = resource.split(".");
 
   return {
     subdomain,
-    apiSubdomain: subdomain + '-api',
+    apiSubdomain: subdomain + "-api",
     domain,
     server: resource,
-  }
-}
+  };
+};
 
 export const getApiUrlForHost = (host: string) => {
-  const [subdomain, domain, tld] = host.split('.');
+  const [subdomain, domain, tld] = host.split(".");
 
   return `${subdomain}-api.${domain}.${tld}`;
-}
+};

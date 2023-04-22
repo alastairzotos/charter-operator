@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { QRErrorDisplay } from "../components/qr-error-display";
-import { QRCodeScanner } from "../components/qr-code-scanner";
-import { useNavigate } from "../utils/nav";
-import { extractSetupDataFromQrCode, QRParseError } from "../utils/qr-code";
-import { clearSetup, saveSetup } from "../state/setup.state";
-import { useAuthState } from "../state/auth.state";
+
+import { QRCodeScanner } from "components/qr-code-scanner";
+import { QRErrorDisplay } from "components/qr-error-display";
+import { useAuthState } from "state/auth.state";
+import { clearSetup, saveSetup } from "state/setup.state";
+import { useNavigate } from "utils/nav";
+import { extractSetupDataFromQrCode, type QRParseError } from "utils/qr-code";
 
 export const SetupScanner: React.FC = () => {
   const navigation = useNavigate();
@@ -20,14 +21,14 @@ export const SetupScanner: React.FC = () => {
   const handleDataReceived = async (_: string, data: string) => {
     const { error, result } = extractSetupDataFromQrCode(data);
 
-    if (!!error) {
+    if (error) {
       setError(error);
     } else {
       setError(null);
       await saveSetup(result);
-      navigation.push('login', { server: result.server });
+      navigation.push("login", { server: result.server });
     }
-  }
+  };
 
   return (
     <QRCodeScanner
@@ -37,4 +38,4 @@ export const SetupScanner: React.FC = () => {
       {error && <QRErrorDisplay error={error} />}
     </QRCodeScanner>
   );
-}
+};

@@ -1,11 +1,17 @@
-import React from "react";
 import * as Google from "expo-auth-session/providers/google";
-import { LoginProps } from "./props";
-import { fetchGoogleUserInfo } from "../../clients/oauth2.client";
-import { usePerformOAuthLogin } from "../../hooks/login.hook";
-import { LoginButton } from "./button-base";
+import React from "react";
 
-export const LoginWithGoogle: React.FC<LoginProps> = ({ setup, onLoading, onError, onSuccess }) => {
+import { fetchGoogleUserInfo } from "clients/oauth2.client";
+import { LoginButton } from "components/login/button-base";
+import { type LoginProps } from "components/login/props";
+import { usePerformOAuthLogin } from "hooks/login.hook";
+
+export const LoginWithGoogle: React.FC<LoginProps> = ({
+  setup,
+  onLoading,
+  onError,
+  onSuccess,
+}) => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: setup.oauth2.googleClientIdAndroid,
     iosClientId: setup.oauth2.googleClientIdIOS,
@@ -17,14 +23,14 @@ export const LoginWithGoogle: React.FC<LoginProps> = ({ setup, onLoading, onErro
     fetchInfo: fetchGoogleUserInfo,
     onError,
     onLoading,
-    onSuccess
+    onSuccess,
   });
 
   return (
     <LoginButton
       prompt="Sign in with Google"
       disabled={!request}
-      onPress={() => promptAsync()}
+      onPress={async () => await promptAsync()}
     />
   );
-}
+};

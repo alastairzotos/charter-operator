@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface Values {
   camera: boolean;
@@ -11,5 +11,7 @@ interface Actions {
 export const usePermissionsStatus = create<Values & Actions>((set) => ({
   camera: false,
 
-  setCameraStatus: (camera: boolean) => set({ camera })
-}))
+  setCameraStatus: (camera: boolean) => {
+    set({ camera });
+  },
+}));

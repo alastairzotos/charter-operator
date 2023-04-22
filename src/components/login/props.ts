@@ -1,4 +1,4 @@
-import { SetupDto } from "../../models/setup";
+import { type SetupDto } from "models/setup";
 
 export interface LoginProps {
   setup: SetupDto;

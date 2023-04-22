@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const SetupDto = z.object({
   server: z.string(),
@@ -9,14 +9,14 @@ export const SetupDto = z.object({
     owner: z.object({
       name: z.string(),
       email: z.string(),
-    })
+    }),
   }),
   oauth2: z.object({
     fbAppId: z.string(),
     googleClientId: z.string(),
     googleClientIdAndroid: z.string(),
     googleClientIdIOS: z.string(),
-  })
+  }),
 });
 
 export type SetupDto = z.infer<typeof SetupDto>;

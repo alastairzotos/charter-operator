@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { QRErrorDisplay } from "../components/qr-error-display";
-import { QRCodeScanner } from "../components/qr-code-scanner";
-import { useNavigate } from "../utils/nav";
-import { extractBookingFromQrCode, QRParseError } from "../utils/qr-code";
-import { useSetup } from "../state/setup.state";
+
+import { QRCodeScanner } from "components/qr-code-scanner";
+import { QRErrorDisplay } from "components/qr-error-display";
+import { useSetup } from "state/setup.state";
+import { useNavigate } from "utils/nav";
+import { extractBookingFromQrCode, type QRParseError } from "utils/qr-code";
 
 export const BookingScanner: React.FC = () => {
   const navigation = useNavigate();
@@ -15,15 +16,15 @@ export const BookingScanner: React.FC = () => {
   const handleDataReceived = (_: string, data: string) => {
     const { error, result } = extractBookingFromQrCode(data);
 
-    if (!!error) {
+    if (error) {
       setError(error);
     } else if (result.hostData.server !== setup.server) {
-      setError('wrong-server');
+      setError("wrong-server");
     } else {
       setError(null);
       navigation.push("booking", { bookingId: result.bookingId });
     }
-  }
+  };
 
   return (
     <QRCodeScanner
@@ -33,4 +34,4 @@ export const BookingScanner: React.FC = () => {
       {error && <QRErrorDisplay error={error} />}
     </QRCodeScanner>
   );
-}
+};

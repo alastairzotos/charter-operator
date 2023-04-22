@@ -1,9 +1,10 @@
 import React from "react";
-import { useNavigate } from "../utils/nav";
-import { BookingScanner } from "../components/booking-scanner";
-import { Wrapper } from "../components/wrapper";
-import { useSetup } from "../state/setup.state";
 import { Button } from "react-native-paper";
+
+import { BookingScanner } from "components/booking-scanner";
+import { Wrapper } from "components/wrapper";
+import { useSetup } from "state/setup.state";
+import { useNavigate } from "utils/nav";
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigate();
@@ -16,7 +17,12 @@ export const HomeScreen: React.FC = () => {
   return (
     <Wrapper>
       {!setup && (
-        <Button mode="contained" onPress={() => navigation.push("setup")}>
+        <Button
+          mode="contained"
+          onPress={() => {
+            navigation.push("setup");
+          }}
+        >
           Connect to account
         </Button>
       )}
@@ -24,4 +30,4 @@ export const HomeScreen: React.FC = () => {
       {!!setup && <BookingScanner />}
     </Wrapper>
   );
-}
+};

@@ -1,16 +1,22 @@
-import { ParamListBase, RouteProp } from "@react-navigation/native";
-import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { HomeMenu } from "../components/home-menu";
-import { BookingScreen } from "./booking";
-import { BookingsScreen } from "./bookings";
-import { HomeScreen } from "./home";
-import { LoginScreen } from "./login";
-import { SetupScreen } from "./setup";
+import { type ParamListBase, type RouteProp } from "@react-navigation/native";
+import { type NativeStackNavigationOptions } from "@react-navigation/native-stack";
+
+import { HomeMenu } from "components/home-menu";
+import { BookingScreen } from "screens/booking";
+import { BookingsScreen } from "screens/bookings";
+import { HomeScreen } from "screens/home";
+import { LoginScreen } from "screens/login";
+import { SetupScreen } from "screens/setup";
 
 export interface Screen {
   component: React.FC;
   title: string;
-  options?: NativeStackNavigationOptions | ((props: { route: RouteProp<ParamListBase, string>; navigation: any; }) => NativeStackNavigationOptions);
+  options?:
+    | NativeStackNavigationOptions
+    | ((props: {
+        route: RouteProp<ParamListBase, string>;
+        navigation: any;
+      }) => NativeStackNavigationOptions);
 }
 
 export const screens = {
@@ -19,7 +25,7 @@ export const screens = {
     title: "Charter",
     options: {
       headerRight: HomeMenu,
-    }
+    },
   },
   setup: {
     component: SetupScreen,
@@ -36,7 +42,7 @@ export const screens = {
   bookings: {
     component: BookingsScreen,
     title: "Bookings",
-  }
+  },
 } satisfies Record<string, Screen>;
 
 export type ScreenKey = keyof typeof screens;

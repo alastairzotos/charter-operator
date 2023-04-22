@@ -1,6 +1,6 @@
 import React from "react";
-import { DataTable, Surface, Text } from 'react-native-paper';
 import { StyleSheet, View } from "react-native";
+import { DataTable, Surface, Text } from "react-native-paper";
 
 interface Props {
   data: Record<string, string>;
@@ -20,8 +20,8 @@ export const BookingDataTable: React.FC<Props> = ({ data }) => {
         ))}
       </DataTable>
     </Surface>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   paper: {
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   table: {
-    width: '100%',
+    width: "100%",
     paddingBottom: 50,
     paddingTop: 24,
   },
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   value: {
-    fontWeight: 'bold',
-    textAlign: 'right',
+    fontWeight: "bold",
+    textAlign: "right",
   },
 });

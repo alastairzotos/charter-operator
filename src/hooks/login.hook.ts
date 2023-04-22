@@ -1,7 +1,8 @@
+import { type AuthSessionResult } from "expo-auth-session";
 import { useEffect } from "react";
-import { AuthSessionResult } from "expo-auth-session";
-import { OAuthUserInfo } from "../models/oauth";
-import { useOAuthLogin } from "../state/oauth2.state";
+
+import { type OAuthUserInfo } from "models/oauth";
+import { useOAuthLogin } from "state/oauth2.state";
 
 interface Props {
   response: AuthSessionResult;
@@ -33,10 +34,10 @@ export const usePerformOAuthLogin = ({
   }, [response]);
 
   useEffect(() => {
-    if (status === 'error') {
+    if (status === "error") {
       onError();
-    } else if (status === 'fetching') {
+    } else if (status === "fetching") {
       onLoading();
     }
   }, [status]);
-}
+};

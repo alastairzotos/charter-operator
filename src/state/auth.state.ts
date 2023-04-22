@@ -1,5 +1,6 @@
-import { create } from 'zustand';
-import { getStorageItem, storageKeys } from "../storage";
+import { create } from "zustand";
+
+import { getStorageItem, storageKeys } from "storage";
 
 interface AuthState {
   initialised: boolean;
@@ -17,15 +18,18 @@ export const useAuthState = create<AuthState & AuthStateActions>((set) => ({
 
   setup: () => {
     set({ initialised: false });
-    getStorageItem(storageKeys.accessToken)
-      .then(accessToken => {
-        if (accessToken) {
-          set({ accessToken, initialised: true });
-        }
-      })
+    getStorageItem(storageKeys.accessToken).then((accessToken) => {
+      if (accessToken) {
+        set({ accessToken, initialised: true });
+      }
+    });
   },
 
-  setAccessToken: accessToken => set({ accessToken }),
+  setAccessToken: (accessToken) => {
+    set({ accessToken });
+  },
 
-  logout: () => set({ initialised: false, accessToken: undefined }),
+  logout: () => {
+    set({ initialised: false, accessToken: undefined });
+  },
 }));

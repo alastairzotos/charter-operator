@@ -1,24 +1,29 @@
-import React, { useEffect } from 'react';
-import { Dimensions, Text } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { Camera } from 'expo-camera';
-import { WRAPPER_PADDING } from './wrapper';
-import { useIsFocused } from '@react-navigation/native';
-import { usePermissionsStatus } from '../state/permissions.state';
+import { useIsFocused } from "@react-navigation/native";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { Camera } from "expo-camera";
+import React, { useEffect } from "react";
+import { Dimensions, Text } from "react-native";
+
+import { WRAPPER_PADDING } from "components/wrapper";
+import { usePermissionsStatus } from "state/permissions.state";
 
 interface Props {
   prompt?: string;
   onDataReceived: (type: string, data: string) => void;
 }
 
-export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({ prompt, onDataReceived, children }) => {
+export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({
+  prompt,
+  onDataReceived,
+  children,
+}) => {
   const isFocused = useIsFocused();
 
   const { camera, setCameraStatus } = usePermissionsStatus();
 
   const getBarCodeScannerPermissions = async () => {
     const { status } = await BarCodeScanner.requestPermissionsAsync();
-    setCameraStatus(status === 'granted');
+    setCameraStatus(status === "granted");
   };
 
   useEffect(() => {
@@ -35,9 +40,11 @@ export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({ prompt
     <>
       {isFocused && (
         <Camera
-          onBarCodeScanned={({ type, data }) => onDataReceived(type, data)}
+          onBarCodeScanned={({ type, data }) => {
+            onDataReceived(type, data);
+          }}
           style={{
-            width: Dimensions.get('screen').width,
+            width: Dimensions.get("screen").width,
             marginLeft: -WRAPPER_PADDING,
             marginRight: -WRAPPER_PADDING,
             marginBottom: WRAPPER_PADDING,
@@ -52,4 +59,4 @@ export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({ prompt
       {prompt && <Text>{prompt}</Text>}
     </>
   );
-}
+};

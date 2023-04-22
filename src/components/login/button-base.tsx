@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Button } from "react-native-paper";
 
 interface Props {
   prompt: string;
@@ -18,11 +18,11 @@ export const LoginButton: React.FC<Props> = ({ prompt, disabled, onPress }) => {
     >
       {prompt}
     </Button>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
     marginTop: 10,
-  }
-})
+  },
+});
