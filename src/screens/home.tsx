@@ -19,9 +19,7 @@ export const HomeScreen: React.FC = () => {
       {!setup && (
         <Button
           mode="contained"
-          onPress={() => {
-            navigation.push("setup");
-          }}
+          onPress={() => navigation.push("setup")}
         >
           Connect to account
         </Button>
