@@ -1,13 +1,15 @@
 import { createQuery } from "@bitmetro/create-query";
-import { loginWithFacebook } from "../clients/oauth2.client";
-import { FbLoginDetails } from "../models/oauth";
+import { login } from "../clients/oauth2.client";
+import { OAuthUserInfo } from "../models/oauth";
 import { setStorageItem, storageKeys } from "../storage";
 import { useAuthState } from "./auth.state";
 
-export const useLoginWithFacebook = createQuery(
-  async (response: FbLoginDetails) => {
-    const accessToken = await loginWithFacebook(response);
-    await setStorageItem(storageKeys.accessToken, accessToken);
-    useAuthState.getState().setAccessToken(accessToken);
-  }
+const setAccessToken = async (accessToken: string) => {
+  await setStorageItem(storageKeys.accessToken, accessToken);
+  useAuthState.getState().setAccessToken(accessToken);
+}
+
+export const useOAuthLogin = createQuery(
+  async (response: OAuthUserInfo) => 
+    await setAccessToken(await login(response))
 );

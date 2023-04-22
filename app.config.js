@@ -18,6 +18,7 @@ module.exports = {
     "**/*"
   ],
   "ios": {
+    "bundleIdentifier": "com.bitmetro.charter",
     "supportsTablet": true,
     "infoPlist": {
       "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
@@ -25,6 +26,7 @@ module.exports = {
     }
   },
   "android": {
+    "package": "com.bitmetro.charter",
     "adaptiveIcon": {
       "foregroundImage": "./assets/adaptive-icon.png",
       "backgroundColor": "#ffffff"

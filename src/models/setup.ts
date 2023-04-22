@@ -14,6 +14,8 @@ export const SetupDto = z.object({
   oauth2: z.object({
     fbAppId: z.string(),
     googleClientId: z.string(),
+    googleClientIdAndroid: z.string(),
+    googleClientIdIOS: z.string(),
   })
 });
 

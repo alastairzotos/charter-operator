@@ -1,51 +1,21 @@
 import { ActivityIndicator, Text } from "react-native-paper"
 import { Wrapper } from "../components/wrapper"
 import { useSetup } from "../state/setup.state"
-import React, { useEffect } from "react";
-import { Button, StyleSheet } from "react-native";
-import * as Facebook from "expo-auth-session/providers/facebook";
-import * as WebBrowser from "expo-web-browser";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import { useNavigate } from "../utils/nav";
-import { useLoginWithFacebook } from "../state/oauth2.state";
-import { fetchFbUserInfo } from "../clients/oauth2.client";
-
-WebBrowser.maybeCompleteAuthSession();
+import { LoginWithFacebook } from "../components/login/login-facebook";
+import { FetchStatus } from "@bitmetro/create-query";
+import { LoginWithGoogle } from "../components/login/login-google";
 
 export const LoginScreen: React.FC = () => {
   const nav = useNavigate();
   const { setup } = useSetup();
+  const [status, setStatus] = useState<FetchStatus | null>(null);
 
-  const [loginStatus, login] = useLoginWithFacebook(s => [s.status, s.request]);
+  const handleSuccess = () => nav.push('home');
 
-  const [request, response, promptAsync] = Facebook.useAuthRequest({
-    clientId: setup.oauth2.fbAppId,
-  });
-
-  useEffect(() => {
-    if (response && response.type === "success" && response.authentication) {
-      fetchFbUserInfo(response.authentication.accessToken)
-        .then(login)
-        .then(() => nav.push("home"));
-    }
-  }, [response]);
-
-  const handlePressAsync = async () => {
-    const result = await promptAsync();
-    if (result.type !== "success") {
-      alert("Uh oh, something went wrong");
-      return;
-    }
-  };
-
-  if (loginStatus === 'error' || response?.type === 'error') {
-    return (
-      <Wrapper>
-        <Text>There was an error</Text>
-      </Wrapper>
-    )
-  }
-
-  if (!setup || loginStatus === 'fetching') {
+  if (!setup || status === 'fetching') {
     return (
       <Wrapper>
         <ActivityIndicator size="large" />
@@ -57,10 +27,18 @@ export const LoginScreen: React.FC = () => {
     <Wrapper>
       <Text variant="titleMedium" style={styles.title}>Login to {setup.server}</Text>
 
-      <Button
-        disabled={!request}
-        title="Sign in with Facebook"
-        onPress={handlePressAsync}
+      <LoginWithFacebook
+        setup={setup}
+        onLoading={() => setStatus('fetching')}
+        onError={() => setStatus('error')}
+        onSuccess={handleSuccess}
+      />
+
+      <LoginWithGoogle
+        setup={setup}
+        onLoading={() => setStatus('fetching')}
+        onError={() => setStatus('error')}
+        onSuccess={handleSuccess}
       />
     </Wrapper>
   )
