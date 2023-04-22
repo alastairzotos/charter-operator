@@ -7,6 +7,7 @@ import * as WebBrowser from "expo-web-browser";
 import { Screen, screens } from './src/screens';
 import { NotificationProvider } from './src/providers/notification-provider';
 import { useAuthState } from './src/state/auth.state';
+import { Wrapper } from 'components/wrapper';
 
 const Stack = createNativeStackNavigator();
 WebBrowser.maybeCompleteAuthSession();

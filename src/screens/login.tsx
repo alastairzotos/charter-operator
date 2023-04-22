@@ -5,9 +5,9 @@ import { ActivityIndicator, Text } from "react-native-paper";
 
 import { LoginWithFacebook } from "components/login/login-facebook";
 import { LoginWithGoogle } from "components/login/login-google";
-import { Wrapper } from "components/wrapper";
 import { useSetup } from "state/setup.state";
 import { useNavigate } from "utils/nav";
+import { Wrapper } from "components/wrapper";
 
 export const LoginScreen: React.FC = () => {
   const nav = useNavigate();
@@ -19,11 +19,7 @@ export const LoginScreen: React.FC = () => {
   };
 
   if (!setup || status === "fetching") {
-    return (
-      <Wrapper>
-        <ActivityIndicator size="large" />
-      </Wrapper>
-    );
+    return <ActivityIndicator size="large" />;
   }
 
   return (

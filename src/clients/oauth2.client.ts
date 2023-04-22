@@ -4,7 +4,7 @@ import { type LoginResponse, type OAuthUserInfo } from "models/oauth";
 export const login = async (details: OAuthUserInfo): Promise<string> => {
   const client = await httpClient();
   const { data } = await client.post<OAuthUserInfo, { data: LoginResponse }>(
-    "/oauth2/implicit",
+    "/users/login-oauth",
     details
   );
   return data.accessToken;

@@ -1,5 +1,7 @@
 import { type FetchStatus } from "@bitmetro/create-query";
+import { Wrapper } from "components/wrapper";
 import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 
 import { useSetup } from "state/setup.state";
@@ -28,11 +30,14 @@ export const NotificationProvider: React.FC<React.PropsWithChildren> = ({
     }
   }, [setup]);
 
+  if ((!status || status === "success")) {
+    return <>{children}</>
+  }
+
   return (
-    <>
-      {status === "fetching" && <ActivityIndicator size="large" />}
+    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+      {status === "fetching" && <ActivityIndicator />}
       {status === "error" && <Text>There was an error</Text>}
-      {(!status || status === "success") && <>{children}</>}
-    </>
-  );
+    </View>
+  )
 };
