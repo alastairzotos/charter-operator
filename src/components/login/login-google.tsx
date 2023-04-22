@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-native";
 import * as Google from "expo-auth-session/providers/google";
 import { LoginProps } from "./props";
 import { fetchGoogleUserInfo } from "../../clients/oauth2.client";

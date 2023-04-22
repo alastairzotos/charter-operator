@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { AuthSessionResult } from "expo-auth-session";
 import { OAuthUserInfo } from "../models/oauth";
-import { FetchStatus } from "@bitmetro/create-query";
 import { useOAuthLogin } from "../state/oauth2.state";
 
 interface Props {

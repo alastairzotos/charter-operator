@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-native";
 import * as Facebook from "expo-auth-session/providers/facebook";
 import { fetchFbUserInfo } from "../../clients/oauth2.client";
 import { LoginProps } from "./props";
