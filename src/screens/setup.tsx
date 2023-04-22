@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 import { SetupScanner } from "components/setup-scanner";
-import { useSetup } from "state/setup.state";
 import { Wrapper } from "components/wrapper";
+import { useSetup } from "state/setup.state";
 
 export const SetupScreen: React.FC = () => {
   const { setup } = useSetup();
@@ -15,8 +15,8 @@ export const SetupScreen: React.FC = () => {
       <Wrapper>
         {!!setup && (
           <Text>
-            You are currently connected as {setup.operator.name}. Do you want
-            to connect to another account?
+            You are currently connected as {setup.operator.name}. Do you want to
+            connect to another account?
           </Text>
         )}
         <Button
@@ -27,7 +27,7 @@ export const SetupScreen: React.FC = () => {
           Connect to an account
         </Button>
       </Wrapper>
-    )
+    );
   }
 
   return (

@@ -2,9 +2,9 @@ import React from "react";
 import { Button } from "react-native-paper";
 
 import { BookingScanner } from "components/booking-scanner";
+import { Wrapper } from "components/wrapper";
 import { useSetup } from "state/setup.state";
 import { useNavigate } from "utils/nav";
-import { Wrapper } from "components/wrapper";
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigate();

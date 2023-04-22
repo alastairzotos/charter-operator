@@ -9,6 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint-staged": "eslint ./src --fix",
+    "lint": "eslint ./src --fix",
     "prepare": "husky install"
   },
   "dependencies": {

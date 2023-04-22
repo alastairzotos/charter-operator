@@ -2,8 +2,8 @@ import { type RouteProp, useRoute } from "@react-navigation/native";
 import React from "react";
 
 import { DataView } from "components/data-view";
-import { useNavigate } from "utils/nav";
 import { Wrapper } from "components/wrapper";
+import { useNavigate } from "utils/nav";
 
 export const BookingScreen: React.FC = () => {
   const route =
