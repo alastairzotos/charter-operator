@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 export const Wrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
   return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
