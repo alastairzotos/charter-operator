@@ -1,13 +1,14 @@
 import * as Facebook from "expo-auth-session/providers/facebook";
 import React from "react";
 
-import { fetchFbUserInfo } from "clients/oauth2.client";
+import { fetchFbUserInfo } from "clients/auth.client";
 import { LoginButton } from "components/login/button-base";
-import { type LoginProps } from "components/login/props";
+import { OAuthLoginProps } from "components/login/props";
 import { usePerformOAuthLogin } from "hooks/login.hook";
 
-export const LoginWithFacebook: React.FC<LoginProps> = ({
+export const LoginWithFacebook: React.FC<OAuthLoginProps> = ({
   setup,
+  disabled,
   onLoading,
   onError,
   onSuccess,
@@ -35,7 +36,7 @@ export const LoginWithFacebook: React.FC<LoginProps> = ({
   return (
     <LoginButton
       prompt="Sign in with Facebook"
-      disabled={!request}
+      disabled={!request || disabled}
       onPress={handleLoginClick}
     />
   );

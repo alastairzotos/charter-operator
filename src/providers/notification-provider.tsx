@@ -1,6 +1,6 @@
 import { type FetchStatus } from "@bitmetro/create-query";
+import { CenterScreen } from "components/center-screen";
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 
 import { useSetup } from "state/setup.state";
@@ -34,9 +34,9 @@ export const NotificationProvider: React.FC<React.PropsWithChildren> = ({
   }
 
   return (
-    <View style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}>
+    <CenterScreen>
       {status === "fetching" && <ActivityIndicator />}
       {status === "error" && <Text>There was an error</Text>}
-    </View>
-  );
+    </CenterScreen>
+  )
 };

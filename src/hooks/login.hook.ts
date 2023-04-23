@@ -1,8 +1,8 @@
 import { type AuthSessionResult } from "expo-auth-session";
 import { useEffect } from "react";
 
-import { type OAuthUserInfo } from "models/oauth";
-import { useOAuthLogin } from "state/oauth2.state";
+import { type OAuthUserInfo } from "models/auth";
+import { useOAuthLogin } from "state/login.state";
 
 interface Props {
   response: AuthSessionResult;

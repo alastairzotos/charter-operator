@@ -1,7 +1,7 @@
 import { httpClient } from "clients/http.client";
-import { type LoginResponse, type OAuthUserInfo } from "models/oauth";
+import { LoginEmailPasswordDetails, type LoginResponse, type OAuthUserInfo } from "models/auth";
 
-export const login = async (details: OAuthUserInfo): Promise<string> => {
+export const loginOAuth = async (details: OAuthUserInfo): Promise<string> => {
   const client = await httpClient();
   const { data } = await client.post<OAuthUserInfo, { data: LoginResponse }>(
     "/users/login-oauth",
@@ -9,6 +9,18 @@ export const login = async (details: OAuthUserInfo): Promise<string> => {
   );
   return data.accessToken;
 };
+
+export const loginEmailPassword = async (details: LoginEmailPasswordDetails): Promise<string> => {
+  const client = await httpClient();
+
+  const { data } = await client.post<
+    any,
+    { data: LoginResponse },
+    LoginEmailPasswordDetails
+  >("/users/login", details);
+
+  return data.accessToken;
+}
 
 export const fetchFbUserInfo = async (
   fbAccessToken: string
