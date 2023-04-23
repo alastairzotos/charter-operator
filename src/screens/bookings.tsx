@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { ScrollView } from "react-native";
-import { ActivityIndicator, List, Text } from "react-native-paper";
+import { RefreshControl, ScrollView, StyleSheet } from "react-native";
+import { List, Text } from "react-native-paper";
 
 import { Wrapper } from "components/wrapper";
 import { useGetBookings } from "state/booking.state";
@@ -25,14 +25,20 @@ export const BookingsScreen: React.FC = () => {
 
   return (
     <Wrapper>
-      {(getSetupStatus === "fetching" || getBookingsStatus === "fetching") && (
-        <ActivityIndicator size="large" />
-      )}
       {(getSetupStatus === "error" || getBookingsStatus === "error") && (
         <Text>There was an error getting the bookings</Text>
       )}
+      
       {bookings && (
-        <ScrollView>
+        <ScrollView
+          style={styles.scrollView}
+          refreshControl={
+            <RefreshControl
+              refreshing={getBookingsStatus === 'fetching'}
+              onRefresh={() => getBookings(setup.operator.id)}
+            />
+          }
+        >
           {bookings.map((bookings) => (
             <List.Item
               key={bookings._id}
@@ -48,3 +54,10 @@ export const BookingsScreen: React.FC = () => {
     </Wrapper>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollView: {
+    padding: 0,
+    margin: 0,
+  }
+})
