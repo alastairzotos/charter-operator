@@ -6,6 +6,7 @@ import { BookingScreen } from "screens/booking";
 import { BookingsScreen } from "screens/bookings";
 import { HomeScreen } from "screens/home";
 import { LoginScreen } from "screens/login";
+import { NewBookingScreen } from "screens/new-booking";
 import { SetupScreen } from "screens/setup";
 
 export interface Screen {
@@ -38,6 +39,10 @@ export const screens = {
   booking: {
     component: BookingScreen,
     title: "Booking",
+  },
+  newBooking: {
+    component: NewBookingScreen,
+    title: "New booking",
   },
   bookings: {
     component: BookingsScreen,

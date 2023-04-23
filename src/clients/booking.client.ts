@@ -1,10 +1,10 @@
 import { httpClient } from "clients/http.client";
-import { type BookingItem } from "models/bookings";
+import { BookingStatus, ReadableBooking, type BookingItem } from "models/bookings";
 
-export const getBookingById = async (id: string) => {
+export const getBookingById = async (id: string): Promise<ReadableBooking> => {
   const { data } = await (
     await httpClient()
-  ).get<Record<string, string>>(`/bookings/readable/${id}`);
+  ).get<ReadableBooking>(`/bookings/readable/${id}`);
 
   return data;
 };
@@ -17,5 +17,13 @@ export const getBookings = async (operatorId: string) => {
   return data.sort(
     (a, b) =>
       new Date(b.bookingDate).getTime() - new Date(a.bookingDate).getTime()
+  );
+};
+
+export const setBookingStatus = async (id: string, status: BookingStatus) => {
+  const client = await httpClient()
+  await client.patch<any, unknown, { id: string; status: BookingStatus }>(
+    "/bookings",
+    { id, status }
   );
 };

@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, Text } from "react-native";
-import { Button } from "react-native-paper";
+import { ActivityIndicator, ScrollView, Text } from "react-native";
 
 import { DataErrorDisplay } from "components/data-error-display";
 import { BookingDataTable } from "components/data-table";
 import { useGetBooking } from "state/booking.state";
 import { useNavigate } from "utils/nav";
+import { ReadableBooking } from "models/bookings";
 
 export interface Props {
   bookingId: string;
-  onReset: () => void;
+  children?: (booking: ReadableBooking) => React.ReactNode;
 }
 
-export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
+export const BookingView: React.FC<Props> = ({ bookingId, children }) => {
   const navigation = useNavigate();
   const [getBookingStatus, getBooking, booking] = useGetBooking((s) => [
     s.status,
@@ -26,18 +26,10 @@ export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
     }
   }, [bookingId]);
 
-  useEffect(() => {
-    if (booking) {
-      if (booking.Name) {
-        navigation.get().setOptions({ title: `Booking by ${booking.Name}` });
-      }
-    }
-  }, [booking]);
-
   return (
     <>
       {getBookingStatus === "success" && !!booking && (
-        <DataErrorDisplay data={booking} />
+        <DataErrorDisplay data={booking.data} />
       )}
 
       <ScrollView>
@@ -48,22 +40,16 @@ export const DataView: React.FC<Props> = ({ bookingId, onReset }) => {
         )}
 
         {getBookingStatus === "success" && !!booking && (
-          <BookingDataTable data={booking} />
+          <BookingDataTable
+            data={{
+              Service: booking.service.name,
+              ...booking.data
+            }}
+          />
         )}
       </ScrollView>
 
-      {(getBookingStatus === "error" || getBookingStatus === "success") && (
-        <Button onPress={onReset} mode="contained" style={styles.scanButton}>
-          Scan another QR code
-        </Button>
-      )}
+      {(booking && children) && children(booking)}
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scanButton: {
-    padding: 16,
-    borderRadius: 1000,
-  },
-});
