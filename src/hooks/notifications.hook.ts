@@ -7,6 +7,7 @@ import { useRef } from "react";
 
 import { attachPushTokenToOperator } from "clients/notifications.client";
 import { type ScreenKey } from "screens";
+import { getStorageItem, setStorageItem, storageKeys } from "storage";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -34,7 +35,15 @@ export const useNotifications = () => {
     const { operatorId, onNavigate } = props;
 
     if (operatorId) {
-      registerForPushNotificationsAsync(props);
+      const registerForNotifications = async () => {
+        const pushToken = await getStorageItem(storageKeys.pushToken);
+
+        if (!pushToken) {
+          await registerForPushNotificationsAsync(props);
+        }
+      }
+
+      registerForNotifications();
 
       // This listener is fired whenever a notification is received while the app is foregrounded
       notificationListener.current =
@@ -107,6 +116,7 @@ const registerForPushNotificationsAsync = async ({
       });
       onStatusChange("fetching");
 
+      await setStorageItem(storageKeys.pushToken, token);
       await attachPushTokenToOperator(server, operatorId, token);
 
       onStatusChange("success");

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const SetupDto = z.object({
+  id: z.string(),
   server: z.string(),
   operator: z.object({
     id: z.string(),

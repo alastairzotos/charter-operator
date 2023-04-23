@@ -47,5 +47,6 @@ export const saveSetup = async (setup: SetupDto) => {
 
 export const clearSetup = async () => {
   await clearStorageItem(storageKeys.setup);
+  await clearStorageItem(storageKeys.pushToken);
   useGetSetup.setState({ status: undefined, value: undefined });
 };

@@ -5,7 +5,7 @@ import { ActivityIndicator, Text } from "react-native-paper";
 
 import { useSetup } from "state/setup.state";
 import { useNavigate } from "utils/nav";
-import { useNotifications } from "utils/notifications";
+import { useNotifications } from "hooks/notifications.hook";
 
 export const NotificationProvider: React.FC<React.PropsWithChildren> = ({
   children,
@@ -21,13 +21,11 @@ export const NotificationProvider: React.FC<React.PropsWithChildren> = ({
       return setupNotifications({
         server: setup.server,
         operatorId: setup.operator.id,
-        onNavigate: (screen, params) => {
-          navigation.push(screen, params);
-        },
+        onNavigate: (screen, params) => navigation.push(screen, params),
         onStatusChange: setStatus,
       });
     }
-  }, [setup]);
+  }, [setup?.id]);
 
   if (!status || status === "success") {
     return <>{children}</>;
