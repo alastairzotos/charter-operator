@@ -27,3 +27,11 @@ export const setBookingStatus = async (id: string, status: BookingStatus) => {
     { id, status }
   );
 };
+
+export const setBookingFulfillment = async (id: string, fulfilled: boolean ) => {
+  const client = await httpClient()
+  await client.post<any, unknown, { id: string; fulfilled: boolean }>(
+    "/bookings/fulfillment",
+    { id, fulfilled }
+  );
+};

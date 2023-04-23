@@ -4,7 +4,6 @@ import { ActivityIndicator, ScrollView, Text } from "react-native";
 import { DataErrorDisplay } from "components/data-error-display";
 import { BookingDataTable } from "components/data-table";
 import { useGetBooking } from "state/booking.state";
-import { useNavigate } from "utils/nav";
 import { ReadableBooking } from "models/bookings";
 
 export interface Props {
@@ -13,7 +12,6 @@ export interface Props {
 }
 
 export const BookingView: React.FC<Props> = ({ bookingId, children }) => {
-  const navigation = useNavigate();
   const [getBookingStatus, getBooking, booking] = useGetBooking((s) => [
     s.status,
     s.request,
@@ -29,7 +27,7 @@ export const BookingView: React.FC<Props> = ({ bookingId, children }) => {
   return (
     <>
       {getBookingStatus === "success" && !!booking && (
-        <DataErrorDisplay data={booking.data} />
+        <DataErrorDisplay booking={booking} />
       )}
 
       <ScrollView>

@@ -16,4 +16,5 @@ export interface ReadableBooking {
   };
   data: Record<string, string>;
   status: BookingStatus;
+  fulfilled: boolean;
 }

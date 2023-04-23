@@ -1069,10 +1069,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@bitmetro/create-query@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@bitmetro/create-query/-/create-query-0.0.5.tgz#b342fb56a1dde46ac4fea64743b7709bb3348f6f"
-  integrity sha512-Y6ACmb57Uvasw7HX9jWsW56VXJWf5PwGYwP6KSDsuEkqtEOOQ3TxnduzqgMDtHbBuU8aRjtnCqNVxRSEJHLWdw==
+"@bitmetro/create-query@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@bitmetro/create-query/-/create-query-0.0.6.tgz#5079b5d394ff1a12d68d7e4fc42a4a49dc1f41c7"
+  integrity sha512-712IYynV2VJZTLYeuQBVxlXZkIQ7ADPM7GyVQO/MDuCJFAoDXRe1vnq7oJJdD0nWPj1oZfjLZKAaDrxccKdDEA==
   dependencies:
     zustand "^4.3.3"
 
