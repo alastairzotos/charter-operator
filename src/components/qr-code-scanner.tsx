@@ -3,6 +3,7 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera } from "expo-camera";
 import React, { useEffect } from "react";
 import { Dimensions, Text } from "react-native";
+import BarcodeMask from 'react-native-barcode-mask';
 
 import { WRAPPER_PADDING } from "components/wrapper";
 import { usePermissionsStatus } from "state/permissions.state";
@@ -53,6 +54,7 @@ export const QRCodeScanner: React.FC<React.PropsWithChildren<Props>> = ({
           }}
         >
           {children}
+          <BarcodeMask showAnimatedLine={false} />
         </Camera>
       )}
 
