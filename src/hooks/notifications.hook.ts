@@ -18,7 +18,6 @@ Notifications.setNotificationHandler({
 });
 
 interface RegisterProps {
-  operatorId: string;
   onStatusChange: (status: FetchStatus) => void;
 }
 
@@ -31,46 +30,44 @@ export const useNotifications = () => {
   const responseListener = useRef<Subscription>();
 
   return (props: Props) => {
-    const { operatorId, onNavigate } = props;
+    const { onNavigate } = props;
 
-    if (operatorId) {
-      const registerForNotifications = async () => {
-        const pushToken = await getStorageItem(storageKeys.pushToken);
+    const registerForNotifications = async () => {
+      const pushToken = await getStorageItem(storageKeys.pushToken);
 
-        if (!pushToken) {
-          await registerForPushNotificationsAsync(props);
-        }
+      if (!pushToken) {
+        await registerForPushNotificationsAsync(props);
       }
-
-      registerForNotifications();
-
-      // This listener is fired whenever a notification is received while the app is foregrounded
-      notificationListener.current =
-        Notifications.addNotificationReceivedListener((notification) => {
-          console.log(notification);
-        });
-
-      // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-      responseListener.current =
-        Notifications.addNotificationResponseReceivedListener((response) => {
-          const {
-            notification: {
-              request: {
-                content: { data },
-              },
-            },
-          } = response;
-
-          const { screen, params } = data as {
-            screen: ScreenKey;
-            params: object | undefined;
-          };
-
-          if (screen) {
-            onNavigate(screen, params);
-          }
-        });
     }
+
+    registerForNotifications();
+
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log(notification);
+      });
+
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        const {
+          notification: {
+            request: {
+              content: { data },
+            },
+          },
+        } = response;
+
+        const { screen, params } = data as {
+          screen: ScreenKey;
+          params: object | undefined;
+        };
+
+        if (screen) {
+          onNavigate(screen, params);
+        }
+      });
 
     return () => {
       if (notificationListener.current) {
@@ -86,10 +83,7 @@ export const useNotifications = () => {
   };
 };
 
-const registerForPushNotificationsAsync = async ({
-  operatorId,
-  onStatusChange,
-}: RegisterProps) => {
+const registerForPushNotificationsAsync = async ({ onStatusChange }: RegisterProps) => {
   if (Platform.OS === "android") {
     await Notifications.setNotificationChannelAsync("default", {
       name: "default",
@@ -105,7 +99,7 @@ const registerForPushNotificationsAsync = async ({
     if (status !== "granted") {
       try {
         await Notifications.requestPermissionsAsync();
-      } catch {}
+      } catch { }
     }
 
     try {
@@ -115,7 +109,7 @@ const registerForPushNotificationsAsync = async ({
       onStatusChange("fetching");
 
       await setStorageItem(storageKeys.pushToken, token);
-      await attachPushTokenToOperator(operatorId, token);
+      await attachPushTokenToOperator(token);
 
       onStatusChange("success");
     } catch {

@@ -5,23 +5,25 @@ import { ActivityIndicator, Text } from "react-native-paper";
 
 import { useNavigate } from "utils/nav";
 import { useNotifications } from "hooks/notifications.hook";
-import { env } from "utils/env";
+import { useAuthState } from "state/auth.state";
 
 export const NotificationProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const navigation = useNavigate();
   const setupNotifications = useNotifications();
+  const { accessToken } = useAuthState();
 
   const [status, setStatus] = useState<FetchStatus | undefined>(undefined);
 
   useEffect(() => {
-    return setupNotifications({
-      operatorId: "", // TODO: Remove this
-      onNavigate: (screen, params) => navigation.push(screen, params),
-      onStatusChange: setStatus,
-    });
-  }, []);
+    if (!!accessToken) {
+      return setupNotifications({
+        onNavigate: (screen, params) => navigation.push(screen, params),
+        onStatusChange: setStatus,
+      });
+    }
+  }, [accessToken]);
 
   if (!status || status === "success") {
     return <>{children}</>;
