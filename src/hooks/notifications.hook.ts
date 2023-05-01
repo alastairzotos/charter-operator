@@ -18,7 +18,6 @@ Notifications.setNotificationHandler({
 });
 
 interface RegisterProps {
-  server: string;
   operatorId: string;
   onStatusChange: (status: FetchStatus) => void;
 }
@@ -88,7 +87,6 @@ export const useNotifications = () => {
 };
 
 const registerForPushNotificationsAsync = async ({
-  server,
   operatorId,
   onStatusChange,
 }: RegisterProps) => {
@@ -117,7 +115,7 @@ const registerForPushNotificationsAsync = async ({
       onStatusChange("fetching");
 
       await setStorageItem(storageKeys.pushToken, token);
-      await attachPushTokenToOperator(server, operatorId, token);
+      await attachPushTokenToOperator(operatorId, token);
 
       onStatusChange("success");
     } catch {

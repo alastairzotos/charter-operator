@@ -7,7 +7,6 @@ import { BookingsScreen } from "screens/bookings";
 import { HomeScreen } from "screens/home";
 import { LoginScreen } from "screens/login";
 import { NewBookingScreen } from "screens/new-booking";
-import { SetupScreen } from "screens/setup";
 
 export interface Screen {
   component: React.FC;
@@ -27,10 +26,6 @@ export const screens = {
     options: {
       headerRight: HomeMenu,
     },
-  },
-  setup: {
-    component: SetupScreen,
-    title: "Setup",
   },
   login: {
     component: LoginScreen,

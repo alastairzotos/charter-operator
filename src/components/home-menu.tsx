@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { IconButton, Menu } from "react-native-paper";
+import { useAuthState } from "state/auth.state";
 
 import { useNavigate } from "utils/nav";
 
@@ -12,24 +13,39 @@ interface MenuItemProps {
 
 export const HomeMenu: React.FC = () => {
   const navigation = useNavigate();
+  const { accessToken, logout } = useAuthState();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems: MenuItemProps[] = [
-    {
-      key: "setup",
-      title: "Connect to account",
-      handle: () => {
-        navigation.push("setup");
-      },
-    },
-    {
-      key: "bookings",
-      title: "Bookings",
-      handle: () => {
-        navigation.push("bookings");
-      },
-    },
-  ];
+    !accessToken
+      ? {
+        key: "login",
+        title: "Login",
+        handle: () => {
+          navigation.push("login");
+        },
+      }
+      : null,
+    !!accessToken
+      ? {
+        key: "logout",
+        title: "Logout",
+        handle: () => {
+          logout();
+          navigation.push("home");
+        },
+      }
+      : null,
+    !!accessToken
+      ? {
+        key: "bookings",
+        title: "Bookings",
+        handle: () => {
+          navigation.push("bookings");
+        },
+      }
+      : null,
+  ].filter(item => !!item);
 
   const handleMenuItemClick = (item: MenuItemProps) => {
     setMenuOpen(false);

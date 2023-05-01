@@ -15,9 +15,3 @@ export const parseHost = (resource: string): HostParseResult => {
     server: resource,
   };
 };
-
-export const getApiUrlForHost = (host: string) => {
-  const [subdomain, domain, tld] = host.split(".");
-
-  return `${subdomain}-api.${domain}.${tld}`;
-};

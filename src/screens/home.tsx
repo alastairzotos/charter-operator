@@ -3,29 +3,25 @@ import { Button } from "react-native-paper";
 
 import { BookingScanner } from "components/booking-scanner";
 import { Wrapper } from "components/wrapper";
-import { useSetup } from "state/setup.state";
 import { useNavigate } from "utils/nav";
+import { useAuthState } from "state/auth.state";
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigate();
-  const { getSetupStatus, setup } = useSetup();
-
-  if (!getSetupStatus) {
-    return null;
-  }
+  const { accessToken } = useAuthState();
 
   return (
     <Wrapper>
-      {!setup && (
+      {!accessToken && (
         <Button
           mode="contained"
-          onPress={() => navigation.push("setup")}
+          onPress={() => navigation.push("login")}
         >
-          Connect to account
+          Login
         </Button>
       )}
 
-      {!!setup && <BookingScanner />}
+      {!!accessToken && <BookingScanner />}
     </Wrapper>
   );
 };

@@ -3,18 +3,18 @@ import React from "react";
 
 import { fetchFbUserInfo } from "clients/auth.client";
 import { LoginButton } from "components/login/button-base";
-import { OAuthLoginProps } from "components/login/props";
+import { LoginProps } from "components/login/props";
 import { usePerformOAuthLogin } from "hooks/login.hook";
+import { env } from "utils/env";
 
-export const LoginWithFacebook: React.FC<OAuthLoginProps> = ({
-  setup,
+export const LoginWithFacebook: React.FC<LoginProps> = ({
   disabled,
   onLoading,
   onError,
   onSuccess,
 }) => {
   const [request, response, promptAsync] = Facebook.useAuthRequest({
-    clientId: setup.oauth2.fbAppId,
+    clientId: env.fbAppId,
   });
 
   usePerformOAuthLogin({

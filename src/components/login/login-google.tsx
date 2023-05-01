@@ -4,19 +4,19 @@ import React from "react";
 import { fetchGoogleUserInfo } from "clients/auth.client";
 import { LoginButton } from "components/login/button-base";
 import { usePerformOAuthLogin } from "hooks/login.hook";
-import { OAuthLoginProps } from "components/login/props";
+import { LoginProps } from "components/login/props";
+import { env } from "utils/env";
 
-export const LoginWithGoogle: React.FC<OAuthLoginProps> = ({
-  setup,
+export const LoginWithGoogle: React.FC<LoginProps> = ({
   disabled,
   onLoading,
   onError,
   onSuccess,
 }) => {
   const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId: setup.oauth2.googleClientIdAndroid,
-    iosClientId: setup.oauth2.googleClientIdIOS,
-    expoClientId: setup.oauth2.googleClientId,
+    androidClientId: env.googleClientIdAndroid,
+    iosClientId: env.googleClientIdIOS,
+    expoClientId: env.googleClientId,
   });
 
   usePerformOAuthLogin({

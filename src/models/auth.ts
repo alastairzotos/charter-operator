@@ -11,3 +11,11 @@ export interface LoginEmailPasswordDetails {
 export interface LoginResponse {
   accessToken: string;
 }
+
+export interface LoggedInUser {
+  _id: string;
+  email: string;
+  givenName: string;
+  role: string;
+  instance: string;
+}

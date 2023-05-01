@@ -1,10 +1,13 @@
 import { create } from "zustand";
+import decodeJwt from 'jwt-decode';
 
-import { getStorageItem, storageKeys } from "storage";
+import { clearStorageItem, getStorageItem, storageKeys } from "storage";
+import { LoggedInUser } from "models/auth";
 
 interface AuthState {
   initialised: boolean;
   accessToken?: string;
+  loggedInUser?: LoggedInUser;
 }
 
 interface AuthStateActions {
@@ -20,16 +23,28 @@ export const useAuthState = create<AuthState & AuthStateActions>((set) => ({
     set({ initialised: false });
     getStorageItem(storageKeys.accessToken).then((accessToken) => {
       if (accessToken) {
-        set({ accessToken, initialised: true });
+        set({
+          accessToken,
+          initialised: true,
+          loggedInUser: decodeJwt(accessToken),
+        });
       }
     });
   },
 
   setAccessToken: (accessToken) => {
-    set({ accessToken });
+    set({
+      accessToken,
+      loggedInUser: decodeJwt(accessToken),
+    });
   },
 
   logout: () => {
-    set({ initialised: false, accessToken: undefined });
+    clearStorageItem(storageKeys.accessToken);
+    set({
+      initialised: false,
+      accessToken: undefined,
+      loggedInUser: undefined,
+    });
   },
 }));

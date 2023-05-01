@@ -1,24 +1,44 @@
-import { createHttpClient } from "@bitmetro/http-client";
+// import { createHttpClient } from "@bitmetro/http-client";
 
+// import { useAuthState } from "state/auth.state";
+// import { env } from "utils/env";
+
+// export const httpClient = async (server?: string) => {
+//   return createHttpClient(
+//     `${env.server}/api/v1`,
+//     () => useAuthState.getState().accessToken
+//   );
+// };
+
+import axios, { AxiosInstance } from "axios";
 import { useAuthState } from "state/auth.state";
-import { getSetup } from "state/setup.state";
 import { env } from "utils/env";
-import { getApiUrlForHost } from "utils/host";
 
-export const httpClient = async (server?: string) => {
-  if (env.server) {
-    return createHttpClient(
-      `${env.server}/api/v1`,
-      () => useAuthState.getState().accessToken
-    );
-  }
+export const createHttpClient = (baseURL: string): AxiosInstance => {
+  const httpClient = axios.create({
+    baseURL,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-  if (!server) {
-    const setup = await getSetup();
-    server = setup.server;
-  }
+  httpClient.interceptors.request.use((config) => {
+    const accessToken = useAuthState.getState().accessToken;
 
-  const apiUrl = `https://${getApiUrlForHost(server)}/api/v1`;
+    if (!!accessToken) {
+      config.headers!.authentication = `Bearer ${accessToken}`;
+    }
 
-  return createHttpClient(apiUrl, () => useAuthState.getState().accessToken);
+    const loggedInUser = useAuthState.getState().loggedInUser;
+
+    const instance = loggedInUser?.instance;
+
+    config.params = { instance };
+
+    return config;
+  }, console.error);
+
+  return httpClient;
 };
+
+export const httpClient = createHttpClient(env.server + "/api/v1");

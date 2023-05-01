@@ -4,13 +4,11 @@ import { SegmentedButtons, Text } from "react-native-paper";
 
 import { Wrapper } from "components/wrapper";
 import { useGetBookings } from "state/booking.state";
-import { useSetup } from "state/setup.state";
 import { BookingList } from "screens/booking-list";
 
 export const BookingsScreen: React.FC = () => {
   const [tab, setTab] = useState('pending');
 
-  const { getSetupStatus, setup } = useSetup();
   const [getBookingsStatus, getBookings, bookings] = useGetBookings((s) => [
     s.status,
     s.request,
@@ -18,10 +16,8 @@ export const BookingsScreen: React.FC = () => {
   ]);
 
   useEffect(() => {
-    if (setup) {
-      getBookings(setup.operator.id);
-    }
-  }, [setup]);
+    getBookings();
+  }, []);
 
   const pendingBookings = bookings
     ? bookings.filter((booking) => booking.status === "pending")
@@ -37,7 +33,7 @@ export const BookingsScreen: React.FC = () => {
 
   return (
     <Wrapper>
-      {(getSetupStatus === "error" || getBookingsStatus === "error") && (
+      {(getBookingsStatus === "error") && (
         <Text>There was an error getting the bookings</Text>
       )}
 
@@ -68,7 +64,7 @@ export const BookingsScreen: React.FC = () => {
             refreshControl={
               <RefreshControl
                 refreshing={getBookingsStatus === 'fetching'}
-                onRefresh={() => getBookings(setup.operator.id)}
+                onRefresh={() => getBookings()}
               />
             }
           >
