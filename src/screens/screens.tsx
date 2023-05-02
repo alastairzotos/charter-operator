@@ -1,5 +1,6 @@
 import { type ParamListBase, type RouteProp } from "@react-navigation/native";
 import { type NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import { Image, Text } from "react-native";
 
 import { HomeMenu } from "components/home-menu";
 import { BookingScreen } from "screens/booking";
@@ -12,11 +13,11 @@ export interface Screen {
   component: React.FC;
   title: string;
   options?:
-    | NativeStackNavigationOptions
-    | ((props: {
-        route: RouteProp<ParamListBase, string>;
-        navigation: any;
-      }) => NativeStackNavigationOptions);
+  | NativeStackNavigationOptions
+  | ((props: {
+    route: RouteProp<ParamListBase, string>;
+    navigation: any;
+  }) => NativeStackNavigationOptions);
 }
 
 export const screens = {
@@ -24,6 +25,26 @@ export const screens = {
     component: HomeScreen,
     title: "Charter",
     options: {
+      headerTitle: () => (
+        <>
+          <Image
+            source={require("./assets/bm-logo-black.png")}
+            style={{
+              width: 30,
+              height: 30,
+              margin: 10,
+              marginTop: 5,
+            }}
+          />
+          <Text style={{
+            fontSize: 21,
+            fontWeight: "500",
+            // marginLeft: 10
+          }}>
+            Charter
+          </Text>
+        </>
+      ),
       headerRight: HomeMenu,
     },
   },

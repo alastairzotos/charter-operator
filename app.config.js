@@ -7,14 +7,14 @@ module.exports = {
   slug: "charter-operator",
   version: "1.0.0",
   orientation: "portrait",
-  icon: "./assets/bm-logo-black.svg",
+  icon: "./assets/bm-logo-black.png",
   scheme: "charter",
   owner: "bitmetro",
   originalFullName: "@bitmetro/charter-operator",
   currentFullName: "@bitmetro/charter-operator",
   userInterfaceStyle: "light",
   splash: {
-    image: "./assets/bm-logo-black.svg",
+    image: "./assets/bm-logo-black.png",
     resizeMode: "contain",
     backgroundColor: "#ffffff",
   },
@@ -31,7 +31,7 @@ module.exports = {
   android: {
     package: "com.bitmetro.charter",
     adaptiveIcon: {
-      foregroundImage: "./assets/adaptive-icon.png",
+      foregroundImage: "./assets/bm-logo-black.png",
       backgroundColor: "#ffffff",
     },
     permissions: ["android.permission.CAMERA"],
@@ -48,7 +48,7 @@ module.exports = {
     ],
   ],
   extra: {
-    server: process.env.SERVER,
+    server: process.env.SERVER || "https://charter-api-test.bitmetro.io",
     fbAppId: process.env.FB_APP_ID,
     googleClientIdAndroid: process.env.GOOGLE_CLIENT_ID_ANDROID,
     googleClientIdIOS: process.env.GOOGLE_CLIENT_ID_IOS,
