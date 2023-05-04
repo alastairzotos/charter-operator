@@ -13,7 +13,7 @@ import { useNavigate } from "utils/nav";
 
 export const LoginScreen: React.FC = () => {
   const nav = useNavigate();
-  const config = useConfiguration();
+  const { googleLogin, facebookLogin } = useConfiguration();
 
   const [status, setStatus] = useState<FetchStatus | null>(null);
 
@@ -26,20 +26,24 @@ export const LoginScreen: React.FC = () => {
 
   return (
     <Wrapper>
-      {config.socialLogin && (
+      {(googleLogin || facebookLogin) && (
+        <Text variant="titleMedium" style={styles.title}>
+          Login
+        </Text>
+      )}
+
+      {googleLogin && <LoginWithGoogle {...props} />}
+      {facebookLogin && <LoginWithFacebook {...props} />}
+
+      {(googleLogin || facebookLogin) && (
         <>
-          <Text variant="titleMedium" style={styles.title}>
-            Login
-          </Text>
-
-          <LoginWithGoogle {...props} />
-          <LoginWithFacebook {...props} />
-
           <Divider bold style={styles.divider} />
+          <Text style={styles.emailPwdTitle}>
+            Login with email and password
+          </Text>
         </>
       )}
 
-      <Text style={styles.emailPwdTitle}>Login with email and password</Text>
       <LoginWithEmailAndPassword {...props} />
     </Wrapper>
   );
