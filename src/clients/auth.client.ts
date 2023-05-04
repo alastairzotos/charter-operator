@@ -54,3 +54,12 @@ export const fetchGoogleUserInfo = async (
     givenName: result.given_name,
   };
 };
+
+export const refreshToken = async () => {
+  const { data } = await httpClient.post<
+    unknown,
+    { data: string | null }
+  >("/users/refresh-token");
+
+  return data;
+}

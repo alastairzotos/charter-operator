@@ -28,6 +28,8 @@ export const useAuthState = create<AuthState & AuthStateActions>((set) => ({
           initialised: true,
           loggedInUser: decodeJwt(accessToken),
         });
+      } else {
+        set({ initialised: true });
       }
     });
   },

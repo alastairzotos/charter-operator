@@ -10,17 +10,24 @@ import { useAuthState } from './src/state/auth.state';
 import { useGetConfiguration } from 'state/configuration.state';
 import { ConfigurationProvider } from 'hooks/configuration.hook';
 import { StatusSwitch } from 'components/status-switch';
+import { useRefreshToken } from 'state/login.state';
 
 const Stack = createNativeStackNavigator();
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-  const { initialised, setup } = useAuthState();
+  const { initialised, setup, loggedInUser } = useAuthState();
   const [getConfigurationStatus, getConfiguration, configuration] = useGetConfiguration(s => [s.status, s.request, s.value]);
+  const [refreshToken] = useRefreshToken(s => [s.request]);
 
   useEffect(() => {
+    console.log({ initialised })
     if (!initialised) {
       setup();
+    } else {
+      if (!!loggedInUser) {
+        refreshToken();
+      }
     }
   }, [initialised]);
 

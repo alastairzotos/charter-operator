@@ -1,6 +1,6 @@
 import { createQuery } from "@bitmetro/create-query";
 
-import { loginEmailPassword, loginOAuth } from "clients/auth.client";
+import { loginEmailPassword, loginOAuth, refreshToken } from "clients/auth.client";
 import { LoginEmailPasswordDetails, type OAuthUserInfo } from "models/auth";
 import { useAuthState } from "state/auth.state";
 import { setStorageItem, storageKeys } from "storage";
@@ -19,3 +19,7 @@ export const useEmailPasswordLogin = createQuery(
     await setAccessToken(await loginEmailPassword(details));
   }
 );
+
+export const useRefreshToken = createQuery(async () => {
+  await setAccessToken(await refreshToken());
+});
