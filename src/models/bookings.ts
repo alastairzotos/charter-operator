@@ -7,7 +7,7 @@ export interface BookingItem {
   status: string;
 }
 
-export type BookingStatus = 'pending' | 'confirmed' | 'rejected';
+export type BookingStatus = "pending" | "confirmed" | "rejected";
 
 export interface ReadableBooking {
   service: {

@@ -8,16 +8,14 @@ import { setStorageItem, storageKeys } from "storage";
 const setAccessToken = async (accessToken: string) => {
   await setStorageItem(storageKeys.accessToken, accessToken);
   useAuthState.getState().setAccessToken(accessToken);
-}
+};
 
-export const useOAuthLogin = createQuery(
-  async (details: OAuthUserInfo) => {
-    await setAccessToken(await loginOAuth(details))
-  }
-);
+export const useOAuthLogin = createQuery(async (details: OAuthUserInfo) => {
+  await setAccessToken(await loginOAuth(details));
+});
 
 export const useEmailPasswordLogin = createQuery(
   async (details: LoginEmailPasswordDetails) => {
-    await setAccessToken(await loginEmailPassword(details))
+    await setAccessToken(await loginEmailPassword(details));
   }
-)
+);

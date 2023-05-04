@@ -3,11 +3,11 @@ import { RefreshControl, ScrollView, StyleSheet } from "react-native";
 import { SegmentedButtons, Text } from "react-native-paper";
 
 import { Wrapper } from "components/wrapper";
-import { useGetBookings } from "state/booking.state";
 import { BookingList } from "screens/booking-list";
+import { useGetBookings } from "state/booking.state";
 
 export const BookingsScreen: React.FC = () => {
-  const [tab, setTab] = useState('pending');
+  const [tab, setTab] = useState("pending");
 
   const [getBookingsStatus, getBookings, bookings] = useGetBookings((s) => [
     s.status,
@@ -33,7 +33,7 @@ export const BookingsScreen: React.FC = () => {
 
   return (
     <Wrapper>
-      {(getBookingsStatus === "error") && (
+      {getBookingsStatus === "error" && (
         <Text>There was an error getting the bookings</Text>
       )}
 
@@ -45,17 +45,17 @@ export const BookingsScreen: React.FC = () => {
             onValueChange={setTab}
             buttons={[
               {
-                label: 'Pending',
-                value: 'pending',
+                label: "Pending",
+                value: "pending",
               },
               {
-                label: 'Confirmed',
-                value: 'confirmed',
+                label: "Confirmed",
+                value: "confirmed",
               },
               {
-                label: 'Rejected',
-                value: 'rejected'
-              }
+                label: "Rejected",
+                value: "rejected",
+              },
             ]}
           />
 
@@ -63,14 +63,16 @@ export const BookingsScreen: React.FC = () => {
             style={styles.scrollView}
             refreshControl={
               <RefreshControl
-                refreshing={getBookingsStatus === 'fetching'}
+                refreshing={getBookingsStatus === "fetching"}
                 onRefresh={() => getBookings()}
               />
             }
           >
-            {tab === 'pending' && <BookingList bookings={pendingBookings} />}
-            {tab === 'confirmed' && <BookingList bookings={confirmedBookings} />}
-            {tab === 'rejected' && <BookingList bookings={rejectedBookings} />}
+            {tab === "pending" && <BookingList bookings={pendingBookings} />}
+            {tab === "confirmed" && (
+              <BookingList bookings={confirmedBookings} />
+            )}
+            {tab === "rejected" && <BookingList bookings={rejectedBookings} />}
           </ScrollView>
         </>
       )}
@@ -85,5 +87,5 @@ const styles = StyleSheet.create({
   scrollView: {
     padding: 0,
     margin: 0,
-  }
-})
+  },
+});

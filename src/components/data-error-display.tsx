@@ -1,8 +1,9 @@
 import dayjs from "dayjs";
-import { ReadableBooking } from "models/bookings";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Surface, Text } from "react-native-paper";
+
+import { ReadableBooking } from "models/bookings";
 
 interface Props {
   booking: ReadableBooking;
@@ -11,11 +12,13 @@ interface Props {
 type BookingErrorType = "not-today" | "fulfilled";
 
 const errorContent: Record<BookingErrorType, string> = {
-  "fulfilled": "This booking has been fulfilled",
+  fulfilled: "This booking has been fulfilled",
   "not-today": "Booking is not for today",
 };
 
-export const DataErrorDisplay: React.FC<Props> = ({ booking: { data, fulfilled } }) => {
+export const DataErrorDisplay: React.FC<Props> = ({
+  booking: { data, fulfilled },
+}) => {
   const today = dayjs().format("DD MMM YYYY");
 
   let error: BookingErrorType | null = null;

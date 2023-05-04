@@ -1,11 +1,11 @@
 import { type FetchStatus } from "@bitmetro/create-query";
-import { CenterScreen } from "components/center-screen";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Text } from "react-native-paper";
 
-import { useNavigate } from "utils/nav";
+import { CenterScreen } from "components/center-screen";
 import { useNotifications } from "hooks/notifications.hook";
 import { useAuthState } from "state/auth.state";
+import { useNavigate } from "utils/nav";
 
 export const NotificationProvider: React.FC<React.PropsWithChildren> = ({
   children,
@@ -34,5 +34,5 @@ export const NotificationProvider: React.FC<React.PropsWithChildren> = ({
       {status === "fetching" && <ActivityIndicator />}
       {status === "error" && <Text>There was an error</Text>}
     </CenterScreen>
-  )
+  );
 };

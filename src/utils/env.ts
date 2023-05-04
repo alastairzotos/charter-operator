@@ -9,4 +9,3 @@ export const env = {
   googleClientIdIOS: extra.googleClientIdIOS as string,
   googleClientId: extra.googleClientId as string,
 };
-

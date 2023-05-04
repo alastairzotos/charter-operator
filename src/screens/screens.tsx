@@ -13,11 +13,11 @@ export interface Screen {
   component: React.FC;
   title: string;
   options?:
-  | NativeStackNavigationOptions
-  | ((props: {
-    route: RouteProp<ParamListBase, string>;
-    navigation: any;
-  }) => NativeStackNavigationOptions);
+    | NativeStackNavigationOptions
+    | ((props: {
+        route: RouteProp<ParamListBase, string>;
+        navigation: any;
+      }) => NativeStackNavigationOptions);
 }
 
 export const screens = {
@@ -36,11 +36,13 @@ export const screens = {
               marginTop: 5,
             }}
           />
-          <Text style={{
-            fontSize: 21,
-            fontWeight: "500",
-            // marginLeft: 10
-          }}>
+          <Text
+            style={{
+              fontSize: 21,
+              fontWeight: "500",
+              // marginLeft: 10
+            }}
+          >
             Charter
           </Text>
         </>

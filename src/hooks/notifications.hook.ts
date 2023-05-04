@@ -38,7 +38,7 @@ export const useNotifications = () => {
       if (!pushToken) {
         await registerForPushNotificationsAsync(props);
       }
-    }
+    };
 
     registerForNotifications();
 
@@ -83,7 +83,9 @@ export const useNotifications = () => {
   };
 };
 
-const registerForPushNotificationsAsync = async ({ onStatusChange }: RegisterProps) => {
+const registerForPushNotificationsAsync = async ({
+  onStatusChange,
+}: RegisterProps) => {
   if (Platform.OS === "android") {
     await Notifications.setNotificationChannelAsync("default", {
       name: "default",
@@ -99,7 +101,7 @@ const registerForPushNotificationsAsync = async ({ onStatusChange }: RegisterPro
     if (status !== "granted") {
       try {
         await Notifications.requestPermissionsAsync();
-      } catch { }
+      } catch {}
     }
 
     try {

@@ -3,37 +3,43 @@ import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Divider, Text } from "react-native-paper";
 
+import { LoginWithEmailAndPassword } from "components/login/email-pwd";
 import { LoginWithFacebook } from "components/login/login-facebook";
 import { LoginWithGoogle } from "components/login/login-google";
-import { Wrapper } from "components/wrapper";
-import { useNavigate } from "utils/nav";
-import { LoginWithEmailAndPassword } from "components/login/email-pwd";
 import { LoginProps } from "components/login/props";
+import { Wrapper } from "components/wrapper";
+import { useConfiguration } from "hooks/configuration.hook";
+import { useNavigate } from "utils/nav";
 
 export const LoginScreen: React.FC = () => {
   const nav = useNavigate();
+  const config = useConfiguration();
+
   const [status, setStatus] = useState<FetchStatus | null>(null);
 
   const props: LoginProps = {
-    disabled: status === 'fetching',
-    onError: () => setStatus('error'),
-    onLoading: () => setStatus('fetching'),
-    onSuccess: () => nav.push('home'),
-  }
+    disabled: status === "fetching",
+    onError: () => setStatus("error"),
+    onLoading: () => setStatus("fetching"),
+    onSuccess: () => nav.push("home"),
+  };
 
   return (
     <Wrapper>
-      <Text variant="titleMedium" style={styles.title}>
-        Login
-      </Text>
+      {config.socialLogin && (
+        <>
+          <Text variant="titleMedium" style={styles.title}>
+            Login
+          </Text>
 
-      <LoginWithGoogle {...props} />
-      <LoginWithFacebook {...props} />
-      
-      <Divider bold style={styles.divider} />
+          <LoginWithGoogle {...props} />
+          <LoginWithFacebook {...props} />
+
+          <Divider bold style={styles.divider} />
+        </>
+      )}
 
       <Text style={styles.emailPwdTitle}>Login with email and password</Text>
-
       <LoginWithEmailAndPassword {...props} />
     </Wrapper>
   );
@@ -48,8 +54,8 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   emailPwdTitle: {
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
     marginBottom: 20,
-  }
+  },
 });

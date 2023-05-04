@@ -3,8 +3,8 @@ import React from "react";
 
 import { fetchGoogleUserInfo } from "clients/auth.client";
 import { LoginButton } from "components/login/button-base";
-import { usePerformOAuthLogin } from "hooks/login.hook";
 import { LoginProps } from "components/login/props";
+import { usePerformOAuthLogin } from "hooks/login.hook";
 import { env } from "utils/env";
 
 export const LoginWithGoogle: React.FC<LoginProps> = ({

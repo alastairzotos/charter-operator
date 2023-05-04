@@ -1,8 +1,14 @@
 import { httpClient } from "clients/http.client";
-import { BookingStatus, ReadableBooking, type BookingItem } from "models/bookings";
+import {
+  BookingStatus,
+  ReadableBooking,
+  type BookingItem,
+} from "models/bookings";
 
 export const getBookingById = async (id: string): Promise<ReadableBooking> => {
-  const { data } = await httpClient.get<ReadableBooking>(`/bookings/readable/${id}`);
+  const { data } = await httpClient.get<ReadableBooking>(
+    `/bookings/readable/${id}`
+  );
 
   return data;
 };
@@ -23,7 +29,7 @@ export const setBookingStatus = async (id: string, status: BookingStatus) => {
   );
 };
 
-export const setBookingFulfillment = async (id: string, fulfilled: boolean ) => {
+export const setBookingFulfillment = async (id: string, fulfilled: boolean) => {
   await httpClient.post<unknown, { id: string; fulfilled: boolean }>(
     "/bookings/fulfillment",
     { id, fulfilled }

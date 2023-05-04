@@ -1,16 +1,5 @@
-// import { createHttpClient } from "@bitmetro/http-client";
-
-// import { useAuthState } from "state/auth.state";
-// import { env } from "utils/env";
-
-// export const httpClient = async (server?: string) => {
-//   return createHttpClient(
-//     `${env.server}/api/v1`,
-//     () => useAuthState.getState().accessToken
-//   );
-// };
-
 import axios, { AxiosInstance } from "axios";
+
 import { useAuthState } from "state/auth.state";
 import { env } from "utils/env";
 

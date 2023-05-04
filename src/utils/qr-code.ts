@@ -3,10 +3,7 @@ import { isHttpsUri } from "valid-url";
 
 import { type HostParseResult, parseHost } from "utils/host";
 
-export type QRParseError =
-  | "invalid-url"
-  | "wrong-url"
-  | "wrong-operator";
+export type QRParseError = "invalid-url" | "wrong-url" | "wrong-operator";
 
 export interface QRCodeParseResult<T> {
   error?: QRParseError;

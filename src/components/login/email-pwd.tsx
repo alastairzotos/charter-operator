@@ -1,8 +1,9 @@
-import { LoginButton } from 'components/login/button-base';
-import { LoginProps } from 'components/login/props';
-import React, { useEffect, useState } from 'react';
-import { TextInput } from 'react-native-paper';
-import { useEmailPasswordLogin } from 'state/login.state';
+import React, { useEffect, useState } from "react";
+import { TextInput } from "react-native-paper";
+
+import { LoginButton } from "components/login/button-base";
+import { LoginProps } from "components/login/props";
+import { useEmailPasswordLogin } from "state/login.state";
 
 export const LoginWithEmailAndPassword: React.FC<LoginProps> = ({
   disabled,
@@ -10,16 +11,22 @@ export const LoginWithEmailAndPassword: React.FC<LoginProps> = ({
   onError,
   onSuccess,
 }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const { status, request: login } = useEmailPasswordLogin();
-  
+
   useEffect(() => {
     switch (status) {
-      case 'fetching': onLoading(); break;
-      case 'error': onError(); break;
-      case 'success': onSuccess(); break;
+      case "fetching":
+        onLoading();
+        break;
+      case "error":
+        onError();
+        break;
+      case "success":
+        onSuccess();
+        break;
     }
   }, [status]);
 
@@ -48,5 +55,5 @@ export const LoginWithEmailAndPassword: React.FC<LoginProps> = ({
         onPress={() => login({ email, password })}
       />
     </>
-  )
-}
+  );
+};

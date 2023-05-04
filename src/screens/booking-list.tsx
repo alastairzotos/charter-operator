@@ -1,7 +1,8 @@
-import { BookingItem } from 'models/bookings';
-import React from 'react';
-import { List } from 'react-native-paper';
-import { useNavigate } from 'utils/nav';
+import React from "react";
+import { List } from "react-native-paper";
+
+import { BookingItem } from "models/bookings";
+import { useNavigate } from "utils/nav";
 
 interface Props {
   bookings?: BookingItem[];
@@ -27,5 +28,5 @@ export const BookingList: React.FC<Props> = ({ bookings }) => {
         />
       ))}
     </>
-  )
-}
+  );
+};

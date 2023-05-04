@@ -1,8 +1,8 @@
+import decodeJwt from "jwt-decode";
 import { create } from "zustand";
-import decodeJwt from 'jwt-decode';
 
-import { clearStorageItem, getStorageItem, storageKeys } from "storage";
 import { LoggedInUser } from "models/auth";
+import { clearStorageItem, getStorageItem, storageKeys } from "storage";
 
 interface AuthState {
   initialised: boolean;

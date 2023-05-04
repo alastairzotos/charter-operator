@@ -3,8 +3,8 @@ import { Button } from "react-native-paper";
 
 import { BookingScanner } from "components/booking-scanner";
 import { Wrapper } from "components/wrapper";
-import { useNavigate } from "utils/nav";
 import { useAuthState } from "state/auth.state";
+import { useNavigate } from "utils/nav";
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigate();
@@ -13,10 +13,7 @@ export const HomeScreen: React.FC = () => {
   return (
     <Wrapper>
       {!accessToken && (
-        <Button
-          mode="contained"
-          onPress={() => navigation.push("login")}
-        >
+        <Button mode="contained" onPress={() => navigation.push("login")}>
           Login
         </Button>
       )}

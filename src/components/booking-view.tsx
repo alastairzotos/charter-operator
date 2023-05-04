@@ -3,8 +3,8 @@ import { ActivityIndicator, ScrollView, Text } from "react-native";
 
 import { DataErrorDisplay } from "components/data-error-display";
 import { BookingDataTable } from "components/data-table";
-import { useGetBooking } from "state/booking.state";
 import { ReadableBooking } from "models/bookings";
+import { useGetBooking } from "state/booking.state";
 
 export interface Props {
   bookingId: string;
@@ -41,13 +41,13 @@ export const BookingView: React.FC<Props> = ({ bookingId, children }) => {
           <BookingDataTable
             data={{
               Service: booking.service.name,
-              ...booking.data
+              ...booking.data,
             }}
           />
         )}
       </ScrollView>
 
-      {(booking && children) && children(booking)}
+      {booking && children && children(booking)}
     </>
   );
 };

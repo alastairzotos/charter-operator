@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const storageKeys = {
-  pushToken: '@charter:push-token',
+  pushToken: "@charter:push-token",
   accessToken: "@charter/access-token",
 } satisfies Record<string, string>;
 
