@@ -12,6 +12,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: WRAPPER_PADDING,
-    paddingTop: 0,
+    paddingTop: 16,
   },
 });

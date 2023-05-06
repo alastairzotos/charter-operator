@@ -1,8 +1,9 @@
 import React from "react";
-import { List } from "react-native-paper";
+import { List, Text } from "react-native-paper";
 
 import { BookingItem } from "models/bookings";
 import { useNavigate } from "utils/nav";
+import { StyleSheet } from "react-native";
 
 interface Props {
   bookings?: BookingItem[];
@@ -11,8 +12,10 @@ interface Props {
 export const BookingList: React.FC<Props> = ({ bookings }) => {
   const navigation = useNavigate();
 
-  if (!bookings) {
-    return null;
+  if (!bookings || bookings.length === 0) {
+    return (
+      <Text style={styles.noBookingsText}>No bookings here</Text>
+    );
   }
 
   return (
@@ -30,3 +33,10 @@ export const BookingList: React.FC<Props> = ({ bookings }) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  noBookingsText: {
+    textAlign: 'center',
+    paddingTop: 16,
+  }
+});
