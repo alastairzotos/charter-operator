@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { RefreshControl, ScrollView, StyleSheet } from "react-native";
 import { SegmentedButtons, Text } from "react-native-paper";
 
-import { Wrapper } from "components/wrapper";
 import { BookingList } from "components/booking-list";
+import { Wrapper } from "components/wrapper";
 import { useGetBookings } from "state/booking.state";
 
 export const BookingsScreen: React.FC = () => {

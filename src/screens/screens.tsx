@@ -28,7 +28,7 @@ export const screens = {
       headerTitle: () => (
         <>
           <Image
-            source={require("./assets/bm-logo-black.png")}
+            source={require("./assets/bm-logo-new-black.png")}
             style={{
               width: 30,
               height: 30,
